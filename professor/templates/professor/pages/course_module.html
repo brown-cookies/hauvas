@@ -26,15 +26,26 @@
         </div>
         <div class="col-lg-10">
         {% comment %} Content Here {% endcomment %}
-        <div class="row">
-          <div class="col-xs-1-12">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="card-title">Modules</h3>
-              </div>
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    Modules
+                                    <a href="{% url 'professor:course-create-module' pk=object.id %}" class="btn btn-success">
+                                        <i class="fa fa-plus"></i> Add new module/s
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="card-text">Manage your modules here!</p>
+                            <div class="d-flex flex-column gap-3">
+                                {% component "module_list" %}{% endcomponent %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
         </div>
     </div>
 </div>

@@ -26,21 +26,33 @@
         </div>
         <div class="col-lg-10">
         {% comment %} Content Here {% endcomment %}
-        <div class="row">
-          <div class="col-xs-1-12">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="card-title">{{ object.title }} | {{ object.codename }} Course</h3>
-                <p class="card-text">{{ object.semester.term }} Semester {{ object.semester.start_year }}-{{ object.semester.end_year }}</p>
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ object.title }} | {{ object.codename }} Course
+                                    <a href="{% url 'professor:course-update-about' pk=object.id %}" class="btn btn-secondary">Edit</a>
+                                </div>
+                            </h3>
+                            <p class="card-text">{{ object.semester.term }} Semester {{ object.semester.start_year }}-{{ object.semester.end_year }}</p>
 
-                <br />
-                <h3 class="text-bg-primary px-2 py-1 rounded-1">About this Course</h3>
-                <br />
-                <p class="text-justify lh-base">{{ object.about }}</p>
-              </div>
+                            <br />
+                            <h3 class="text-bg-primary px-2 py-1 rounded-1">About your Professor</h3>
+                            <br />
+
+                            <h3 class="text-bg-primary px-2 py-1 rounded-1">About this Course</h3>
+                            <p class="text-justify lh-base">
+                                {% autoescape off %}
+                                    {{ object.about }}
+                                {% endautoescape %}
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
         </div>
     </div>
 </div>

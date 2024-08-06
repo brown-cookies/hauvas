@@ -1,0 +1,50 @@
+{% extends "base/base.html" %} 
+
+{% load static %} 
+
+{% block title %} {{ title }} {% endblock %} 
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="d-block d-lg-none">
+                <div class="position-relative w-100">
+                    <button class="position-relative end-0 btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#sub-menu-collapse" aria-expanded="false" aria-controls="sub-menu-collapse">
+                        Open Navigation
+                    </button>
+                </div>
+                <div class="collapse" id="sub-menu-collapse">
+                    <div class="list-group list-group-flush">
+                        {% component "professor_sub_list" %}{% endcomponent %}
+                    </div>
+                </div>
+            </div>
+            <div class="list-group list-group-flush d-none d-lg-block">
+                {% component "professor_sub_list" %}{% endcomponent %}
+            </div>
+        </div>
+        <div class="col-lg-10">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ module_item }}
+                                    <a href="{% url 'professor:course-update-module' pk=object.id item_id=module_item.id %}" class="btn btn-secondary">Edit</a>
+                                </div>
+                            </h3>
+                            <p class="card-text">{{ module_item.short_description }}</p>
+
+                            <br />
+                            <p>{{ module_item.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

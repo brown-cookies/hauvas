@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Event(models.Model):
     course = models.ForeignKey(
-        "professor.Course", on_delete=models.CASCADE, related_name="c_events"
+        "dashboard.Course", on_delete=models.CASCADE, related_name="c_events"
     )
     title = models.CharField(max_length=254)
     description = models.TextField()

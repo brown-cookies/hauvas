@@ -1,0 +1,37 @@
+{% extends "base/base.html" %} 
+
+{% load static %} 
+
+{% block title %} {{ title }} {% endblock %} 
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    Event Detail
+                                </div>
+                            </h3>
+
+                            <br />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}{% endblock extra_js %}

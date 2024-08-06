@@ -9,30 +9,32 @@
     <title>{% block title %} Title Here! {% endblock %} | Canvas++</title>
 
     <!-- Main styling starts here -->
-    <link
-      rel="stylesheet"
-      crossorigin
-      href="{% static '/compiled/css/application-email.css' %}"
-    /> 
-    <link
-      rel="stylesheet"
-      crossorigin
-      href="{% static '/compiled/css/app.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      crossorigin
-      href="{% static '/compiled/css/app-dark.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      crossorigin
-      href="{% static '/compiled/css/iconly.css' %}"
-    />
-    <link rel="stylesheet"
-    crossorigin 
-    href="{% static '/extensions/@fortawesome/fontawesome-free/css/all.min.css' %}"
-    />
+    <!-- Main styling starts here -->
+    <link rel="stylesheet" crossorigin href="{% static '/css/application-email.min.css' %}"/> 
+    
+    <link rel="stylesheet" crossorigin href="{% static '/css/bootstrap.css' %}"/>
+    
+    <link rel="stylesheet" crossorigin href="{% static '/css/bootstrap-dark.css' %}"/>
+
+    <link rel="stylesheet" href="{% static '/css/fontawesome-free.min.css' %}"/>
+
+    <link rel="stylesheet" crossorigin href="{% static '/css/iconly.min.css' %}"/>
+
+    <link rel="stylesheet" crossorigin href="{% static '/css/table-datatable-jquery.min.css' %}"/>
+
+    {% comment %} TODO: Minify the stylesheet {% endcomment %}
+    <link rel="stylesheet" crossorigin href="{% static '/css/toastify.css' %}"/>
+
+    <link rel="stylesheet" crossorigin href="{% static '/css/sweetalert2.min.css' %}"/>
+
+    {% comment %} TODO: Minify the stylesheet {% endcomment %}
+    <link rel="stylesheet" crossorigin href="{% static '/css/dataTables.bootstrap5.css' %}"/>
+
+    <link rel="stylesheet" crossorigin href="{% static '/css/quill.core.css' %}"/>
+    <link rel="stylesheet" crossorigin href="{% static '/css/quill.snow.css' %}"/>
+
+
+    {% component_css_dependencies %}
 
     {% block extra_css %}{% endblock extra_css %}
 
@@ -3333,14 +3335,52 @@
     </div>
     <!-- Main page ends here -->
 
-    <!-- Main Sources -->
-    <script src="{% static '/static/js/components/dark.js' %}" defer></script>
-    <script
-      src="{% static '/extensions/perfect-scrollbar/perfect-scrollbar.min.js' %}"
-      defer
-    ></script>
-    <script src="{% static '/compiled/js/app.js' %}" defer></script>
-    <script src="{% static '/extensions/jquery/jquery.min.js' defer %}"></script>
+    {% comment %} Messages display starts here (hidden by default for toastify to use) {% endcomment %}
+    {% if messages %}
+      <ul class="messages d-none">
+      {% for message in messages %}
+          <li data-message="{{ message }}" data-level={{ message.level }}>
+          </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {% comment %} Messages display ends here {% endcomment %}
+
+    {% comment %} <Main Sources {% endcomment %}
+
+    {% comment %} Handling dark mode toggle {% endcomment %}
+    <script src="{% static '/js/dark.js' %}" defer></script>
+    {% comment %} Handling dark mode toggle {% endcomment %}
+
+    {% comment %} App's script starts here {% endcomment %}
+    <script src="{% static '/js/app.js' %}" defer></script>
+    {% comment %} App's script starts here {% endcomment %}
+
+    {% comment %} Custom scrollbar starts here {% endcomment %}
+    <script src="{% static '/js/perfect-scrollbar.min.js' %}" defer></script>
+    {% comment %} Custom scrollbar starts here {% endcomment %}
+
+    {% comment %} jQuery starts here {% endcomment %}
+    <script src="{% static '/js/jquery.min.js' defer %}"></script>
+    {% comment %} jQuery ends here {% endcomment %}
+
+    {% comment %} Toastify.js starts here {% endcomment %}
+    <script src="{% static '/js/toastify.js' %}" defer></script>
+    <script src="{% static '/js/display-toastify.js' %}" defer></script>
+    {% comment %} Toastify.js ends here {% endcomment %}
+
+    {% comment %} SweetAlert starts here {% endcomment %}
+    <script src="{% static '/js/sweetalert2.min.js' %}"></script>
+    {% comment %} SweetAlert ends here {% endcomment %}
+
+    {% comment %} Jquery DataTables with BS5 starts here {% endcomment %}
+    <script src="{% static '/js/jquery.dataTables.min.js' %}" defer></script>
+    <script src="{% static '/js/dataTables.bootstrap5.min.js' %}" defer></script>
+    {% comment %} Jquery DataTables with BS5 ends here {% endcomment %}
+
+    <script src="{% static '/js/quill.min.js' %}"></script>
+
+    {% component_js_dependencies %}
 
     {% block extra_js %}{% endblock extra_js %}
   </body>

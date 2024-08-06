@@ -4,8 +4,12 @@ from canvas.serializer import UserViewSet
 from main.serializer import DepartmentViewSet, ProfileViewSet
 from event.serializer import EventViewSet
 from inbox.serializer import InboxViewSet
-from professor.serializer import ProfessorViewSet, CourseViewSet
-from student.serializer import EnrollmentViewSet, StudentViewSet
+from dashboard.serializer import (
+    ProfessorViewSet,
+    CourseViewSet,
+    EnrollmentViewSet,
+    StudentViewSet,
+)
 from announcement.serializer import AnnouncementViewSet
 from todo.serializer import TodoViewSet
 

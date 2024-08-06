@@ -5,7 +5,7 @@ from django.conf import settings
 # Create your models here.
 class Todo(models.Model):
     course = models.ForeignKey(
-        "professor.Course", on_delete=models.CASCADE, related_name="c_todos"
+        "dashboard.Course", on_delete=models.CASCADE, related_name="c_todos"
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="todos"

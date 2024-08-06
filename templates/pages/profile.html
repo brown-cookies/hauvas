@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load humanize %}
+
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
@@ -102,14 +104,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                      {% for course in courses %}
                         <tr>
-                            <td class="text-bold-500">4711</td>
-                            <td>CPE-202</td>
-                            <td class="text-bold-500">Engineering Economics</td>
-                            <td>7:00AM - 10:00AM</td>
-                            <td>MTH</td>
-                            <td>SH-202</td>
+                          <td class="text-bold-500">{{ course.code }}</td>
+                          <td>{{ course.block }}</td>
+                          <td class="text-bold-500">{{ course.title }}</td>
+                          <td>{{ course.time }}</td>
+                          <td>{{ course.days }}</td>
+                          <td>{{ course.room }}</td>
                         </tr>
+                      {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -128,49 +132,57 @@
         <div class="card-body">
           <form action="{% url 'profile' %}" method="POST">
             {% csrf_token %}
-            <div class="form-group">
-              <label for="id_first_name" class="form-label">First Name</label>
-              {{ form.first_name }}
+            <div class="row">
+              <div class="form-group col-12 col-lg-4">
+                <label for="id_first_name" class="form-label">First Name</label>
+                {{ form.first_name }}
+              </div>
+              <div class="form-group col-12 col-lg-4">
+                <label for="id_middle_name" class="form-label">Middle Name</label>
+                {{ form.middle_name }}
+              </div>
+              <div class="form-group col-12 col-lg-4">
+                <label for="id_last_name" class="form-label">Last Name</label>
+                {{ form.last_name }}
+              </div>
             </div>
-            <div class="form-group">
-              <label for="id_middle_name" class="form-label">Middle Name</label>
-              {{ form.middle_name }}
+            <div class="row">
+              <div class="form-group col-12 col-lg-6">
+                <label for="id_email" class="form-label">Email</label>
+                {{ form.email }}
+              </div>
+              <div class="form-group col-12 col-lg-6">
+                <label for="id_date_of_birth" class="form-label">Date of Birth</label>
+                {{ form.date_of_birth }}
+              </div>
             </div>
-            <div class="form-group">
-              <label for="id_last_name" class="form-label">Last Name</label>
-              {{ form.last_name }}
-            </div>
-            <div class="form-group">
-              <label for="id_email" class="form-label">Email</label>
-              {{ form.email }}
-            </div>
-            <div class="form-group">
-              <label for="id_date_of_birth" class="form-label">Date of Birth</label>
-              {{ form.date_of_birth }}
-            </div>
-            <div class="form-group">
-              <label for="id_gender" class="form-label">Gender</label>
-              {{ form.gender }}
-            </div>
-            <div class="form-group">
-              <label for="id_contact_number" class="form-label">Contact</label>
-              {{ form.contact_number }}
+            <div class="row">
+              <div class="form-group  col-12 col-lg-6">
+                <label for="id_gender" class="form-label">Gender</label>
+                {{ form.gender }}
+              </div>
+              <div class="form-group  col-12 col-lg-6">
+                <label for="id_contact_number" class="form-label">Contact</label>
+                {{ form.contact_number }}
+              </div>
             </div>
             <div class="form-group">
               <label for="id_bio" class="form-label">Bio</label>
               {{ form.bio }}
             </div>
-            <div class="form-group">
-              <label for="id_city" class="form-label">City</label>
-              {{ form.city }}
-            </div>
-            <div class="form-group">
-              <label for="id_province" class="form-label">Province</label>
-              {{ form.province }}
-            </div>
-            <div class="form-group">
-              <label for="id_country" class="form-label">Country</label>
-              {{ form.country }}
+            <div class="row">
+              <div class="form-group col-12 col-lg-4">
+                <label for="id_city" class="form-label">City</label>
+                {{ form.city }}
+              </div>
+              <div class="form-group col-12 col-lg-4">
+                <label for="id_province" class="form-label">Province</label>
+                {{ form.province }}
+              </div>
+              <div class="form-group col-12 col-lg-4">
+                <label for="id_country" class="form-label">Country</label>
+                {{ form.country }}
+              </div>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary">

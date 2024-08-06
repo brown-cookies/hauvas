@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Announcement(models.Model):
     course = models.ForeignKey(
-        "professor.Course",
+        "dashboard.Course",
         on_delete=models.CASCADE,
         related_name="announcements",
     )

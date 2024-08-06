@@ -3,7 +3,7 @@
 {% block title %} Login {% endblock title %}
 
 {% block form_content %}
-<form method="POST" action="{% url "login" %}">
+<form method="POST" action="{% if next %} {% url "login" %}?next={{ next }} {% else %} {% url "login" %} {% endif %}">
     {% csrf_token %}
     {% if form.errors %}
     <div class="alert alert-danger" role="alert">
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="form-check form-check-lg d-flex align-items-end">
-        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
+        {{ form.remember_me }}
         <label class="form-check-label text-gray-600" for="flexCheckDefault">
             Keep me logged in
         </label>

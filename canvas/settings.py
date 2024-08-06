@@ -40,13 +40,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     "django_components",
     "django_seed",
     "haystack",
     "rest_framework",
+    "dashboard",
     "canvas",
     "main",
-    "student",
     "professor",
     "announcement",
     "grade",
@@ -121,6 +122,12 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 # Session
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+# Save session on every request (to keep persistency)
+SESSION_SAVE_EVERY_REQUEST = True
+
+# Session Default Age (Default = 7 Days)
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7
 
 # Use secure cookies if you are on HTTPS
 SESSION_COOKIE_SECURE = True

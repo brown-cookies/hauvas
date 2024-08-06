@@ -3,4 +3,4 @@ from . import views
 
 app_name = "inbox"
 
-urlpatterns = [path("", views.InboxDashboardView.as_view(), name="inbox")]
+urlpatterns = [path("", views.InboxList.as_view(), name="inbox")]

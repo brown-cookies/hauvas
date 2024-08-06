@@ -1,0 +1,62 @@
+{% extends "base/base.html" %} 
+
+{% load static %} 
+
+{% block title %} {{ title }} {% endblock %} 
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+        {% comment %} Content Here {% endcomment %}
+        <div class="row">
+          <div class="col-xs-1-12">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">Updating {{ object.title }} | {{ object.codename }} 'About the Course'</h3>
+                <p class="card-text">Accepts HTML and Markdown</p>
+                <br />
+
+
+                {% if form_success %}
+                <div class="alert alert-success alert-dismissible show fade">
+                    <span class="fs-5"><i class="bi bi-check-circle"></i> Success Updating About the Course Content!<span>
+                    <a href="{% url 'professor:course' pk=object.id %}">Go back?</a>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+
+
+                <form method="POST" action="{% url 'professor:course-update-about' pk=object.id %}">
+                    {% csrf_token %}
+                    {{ form.about }}
+                    <div id="editor"></div>
+                    <br />
+                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+  let about_textarea = $("#id_about");
+
+  let quill = new Quill('#editor', {
+    theme: 'snow'
+  });
+
+  console.log(quill)
+
+  quill.on('text-change', (delta, oldDelta, source) => {
+    console.log(quill.getContents())
+  });
+
+  about_textarea.val(about_textarea.attr("value"));
+</script>
+{% endblock extra_js %}

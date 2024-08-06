@@ -1,129 +1,114 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import login, logout
-from django.views import View
+from django.contrib.auth import authenticate, login, logout
+from django.views.generic import TemplateView
 from .forms import UserLoginForm
 from main.forms import ProfileForm, ChangePasswordForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from common.util.get_courses import get_professor_courses
+from dashboard.views.views import View
 
 
 # Create your views here.
-class HomePageView(View):
-    def get(self, request, *args, **kwargs):
-        return redirect("login")
+class LoginPageView(TemplateView):
+    template_name = "pages/login.html"
 
-
-class LoginPageView(View):
     def get(self, request, *args, **kwargs):
+
         if request.user.is_authenticated:
-            return redirect("dashboard")
+            return redirect("dashboard:dashboard")
+
         form = UserLoginForm()
-        return render(request, "pages/login.html", {"form": form})
+        context = {"form": form, "next": request.GET.get("next", None)}
+
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+
         form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            login(request, form.get_user())
-            return redirect("dashboard")
-        else:
+        context = {"form": form, "next": request.GET.get("next")}
+
+        if not form.is_valid():
             messages.error(request, "Invalid username or password.")
-            return render(request, "pages/login.html", {"form": form})
+            return render(request, self.template_name, context)
+
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password"]
+        remember_me = form.cleaned_data["remember_me"]
+
+        user = authenticate(username=username, password=password)
+
+        if not user:
+            messages.error(request, "Not a user")
+            return render(request, self.template_name, context)
+
+        login(request, user)
+
+        # set session to expire when browser close (1 Month)
+        if remember_me:
+            request.session.set_expiry(60 * 60 * 24 * 30)
+        else:
+            request.session.set_expiry(0)
+
+        if context["next"]:
+            return redirect(context["next"])
+
+        return redirect("dashboard:dashboard")
 
 
-class LogoutPageView(View):
+class LogoutPageView(TemplateView):
     def get(self, request, *args, **kwargs):
+
         logout(request)
         return redirect("login")
 
 
-class DashboardPageView(View):
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            if request.user.profile.is_student:
-                return redirect("student:dashboard")
-            elif request.user.profile.is_professor:
-                return redirect("professor:dashboard")
-            else:
-                return redirect("login")
-        else:
-            return redirect("login")
+class ProfilePageView(View, TemplateView):
+    template_name = "pages/profile.html"
 
-
-class ProfilePageView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         form = ProfileForm()
 
-        user = self.request.user
+        context = self.get_context_data(*args, **kwargs)
 
-        # TODO: Add get_student_courses for student viewing profile page
-        courses = get_professor_courses(user)
+        context["title"] = "Profile"
+        context["link"] = "profile"
+        context["form"] = form
 
-        context = {
-            "title": "Profile",
-            "link": "profile",
-            "courses": courses,
-            "form": form,
-        }
-
-        return render(request, "pages/profile.html", context)
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         # TODO: Update profile data
         return redirect("profile")
 
 
-class SecurityPageView(LoginRequiredMixin, View):
+class SecurityPageView(View, TemplateView):
+    template_name = "pages/security.html"
+
     def get(self, request, *args, **kwargs):
         form = ChangePasswordForm(self.request.user)
 
-        user = self.request.user
+        context = self.get_context_data(*args, **kwargs)
 
-        # TODO: Add get_student_courses for student viewing profile page
-        courses = get_professor_courses(user)
+        context["title"] = "Security"
+        context["link"] = "security"
+        context["form"] = form
 
-        context = {
-            "title": "Security",
-            "link": "security",
-            "courses": courses,
-            "form": form,
-        }
-
-        return render(
-            request,
-            "pages/security.html",
-            context,
-        )
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         form = ChangePasswordForm(self.request.user, data=request.POST)
 
-        user = self.request.user
+        context = self.get_context_data(*args, **kwargs)
 
-        # TODO: Add get_student_courses for student viewing profile page
-        courses = get_professor_courses(user)
-
-        context = {
-            "title": "Security",
-            "link": "security",
-            "courses": courses,
-            "form": form,
-        }
+        context["title"] = "Security"
+        context["link"] = "security"
+        context["form"] = form
 
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, "Password changed successfully.")
-            return render(
-                request,
-                "pages/security.html",
-                context,
-            )
+            return render(request, self.template_name, context)
         else:
             messages.error(request, "An error occurred when changing password.")
-            return render(
-                request,
-                "pages/security.html",
-                context,
-            )
+            return render(request, self.template_name, context)

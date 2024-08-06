@@ -4,7 +4,7 @@
     <div class="sidebar-header position-relative">
       <div class="d-flex justify-content-between align-items-center">
         <div class="text-sm mt-1">
-          Canvas++
+          HAUvas++
         </div>
         <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
           <svg
@@ -76,72 +76,45 @@
         <li class="sidebar-title">Menu</li>
 
         <li class="sidebar-item {% if link == "dashboard" %} active {% endif %}">
-          {% if user.profile.is_student %}
-            <a href="{% url 'student:dashboard' %}" class="sidebar-link">
+            <a href="{% url 'dashboard:dashboard' %}" class="sidebar-link">
               <i class="bi bi-grid-fill"></i>
               <span>Dashboard</span>
             </a>
-          {% else %}
-            <a href="{% url 'professor:dashboard' %}" class="sidebar-link">
-              <i class="bi bi-grid-fill"></i>
-              <span>Dashboard</span>
-            </a>
-          {% endif %}
         </li>
 
         <li class="sidebar-item has-sub {% if link == "course" %} active {% endif %}">
           <a href="#" class="sidebar-link">
-            <i class="bi bi-stack"></i>
+            <i class="fa fa-layer-group"></i>
             <span>Courses</span>
           </a>
 
           <ul class="submenu">
             {% for course in courses %}
             <li class="submenu-item">
-              <a href="{% url 'professor:course' pk=course.course_id  %}" class="submenu-link">{{ course.title }}</a>
+              <a href="{% url 'dashboard:course-home' course_id=course.id %}" class="submenu-link">{{ course.title }}</a>
             </li>
           {% endfor %} 
           </ul>
         </li>
 
-        <li class="sidebar-item {% if link == "assignment" %} active {% endif %}">
-          {% if user.profile.is_student %}
-            <a href="{% url 'student:bookmark' %}" class="sidebar-link">
-              <i class="fa fa-list-ul"></i>
-              <span>Assignments</span>
-            </a>
-          {% endif %}
-        </li>
-
-        <li class="sidebar-item {% if link == "bookmark-announcement" %} active {% endif %}">
-          {% if user.profile.is_student %}
-            <a href="{% url 'student:bookmark' %}" class="sidebar-link">
-              <i class="fa fa-bookmark"></i>
-              <span>Bookmarks</span>
-            </a>
-          {% endif %}
-        </li>
-
-
-
         <li class="sidebar-title">Extra</li>
 
         <li class="sidebar-item {% if link == "announcement" %} active {% endif %}">
-          <a href="{% url 'announcement:announcement' %}" class="sidebar-link">
+          <a href="{% url 'announcement:announcement-list' %}" class="sidebar-link">
             <i class="fa fa-bullhorn"></i>
             <span>Announcements</span>
           </a>
         </li>
 
         <li class="sidebar-item {% if link == "grade" %} active {% endif %}">
-          <a href="{% url 'grade:grade' %}" class="sidebar-link">
+          <a href="{% url 'grade:grade-list' %}" class="sidebar-link">
             <i class="fa fa-book"></i>
             <span>Grades</span>
           </a>
         </li>
 
         <li class="sidebar-item {% if link == "event" %} active {% endif %}">
-          <a href="{% url 'event:event' %}" class="sidebar-link">
+          <a href="{% url 'event:event-list' %}" class="sidebar-link">
             <i class="fa fa-calendar"></i>
             <span>Events</span>
           </a>

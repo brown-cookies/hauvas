@@ -27,3 +27,11 @@ class UserLoginForm(AuthenticationForm):
             }
         )
     )
+
+    remember_me = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={"class": "form-check-input me-2"},
+        ),
+        initial=True,
+        required=False,
+    )
