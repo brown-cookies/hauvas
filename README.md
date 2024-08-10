@@ -97,7 +97,7 @@
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/brown-cookies/hauvas.git
+    git clone https://github.com/<your github username>/hauvas.git
     cd hauvas
     ```
 2. Create a virtual environment:
@@ -105,27 +105,41 @@
     python -m venv venv
     ```
 3. Activate virtual environment:
-        Windows:
-       ```bash
-        venv/Scripts/activate
-        ```
-       MacOS and Linux:
-       ```bash
-        . venv/bin/activate
-        ```
+      Windows:
+     ```bash
+      venv/Scripts/activate
+      ```
+     MacOS and Linux:
+     ```bash
+      . venv/bin/activate
+      ```
+   - **_NOTE:_** your terminal should have ``` (venv) ``` indicating that venv is active.
    
-4. Install dependencies:
+5. Install dependencies:
     ```bash
     pip install -r requirements.txt
     ```
 
-5. Apply migrations:
+6. Apply migrations:
     ```bash
     python manage.py migrate
     ```
 
-6. Run the development server:
+7. Create Superuser:
+   ```bash
+    python manage.py createsuperuser
+    ```
+   - **_NOTE:_** Fill up the form (do not forget it as you will need to access admin)
+
+8. Visit Admin panel at [127.0.0.1:8000](127.0.0.1:8000) and login to your newly created super user:
+
+9. Create user account with username, password:
+  - **_NOTE:_** do not forget this as you will need to login to the dashboard and start designing the application
+11. Go to Profile table and create profile that correspond to the user account (make sure that it is a professor type)
+12. Lastly go to Professor table and create a professor that correspond to user
+
+7. Run the development server:
     ```bash
     python manage.py runserver
     ```
-7. Visit [127.0.0.1:8000](127.0.0.1:8000)
+8. Visit [127.0.0.1:8000](127.0.0.1:8000)

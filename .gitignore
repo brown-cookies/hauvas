@@ -4,3 +4,4 @@ node_modules/
 db.sqlite3
 dist/
 static_my_project/*
+venv/*

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "django_components",
     "django_seed",
-    "haystack",
+    # "haystack",
     "rest_framework",
     "dashboard",
     "canvas",
@@ -97,12 +97,12 @@ TEMPLATES = [
     },
 ]
 
-HAYSTACK_CONNECTIONS = {
-    "default": {
-        "ENGINE": "haystack.backends.solr_backend.SolrEngine",
-        "URL": "http://127.0.0.1:8983/solr",
-    },
-}
+# HAYSTACK_CONNECTIONS = {
+#     "default": {
+#         "ENGINE": "haystack.backends.solr_backend.SolrEngine",
+#         "URL": "http://127.0.0.1:8983/solr",
+#     },
+# }
 
 WSGI_APPLICATION = "canvas.wsgi.application"
 
