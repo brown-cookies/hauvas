@@ -1,0 +1,26 @@
+[
+{
+    "model": "dashboard.professor",
+    "pk": 1,
+    "fields": {
+        "user": 4,
+        "department": 6,
+        "hire_date": "2014-07-02T00:00:00Z",
+        "academic_rank": "Professor",
+        "created_at": "2024-08-03T04:01:38.265Z",
+        "updated_at": "2024-08-03T04:01:38.265Z"
+    }
+},
+{
+    "model": "dashboard.professor",
+    "pk": 2,
+    "fields": {
+        "user": 5,
+        "department": 6,
+        "hire_date": "2014-07-02T00:00:00Z",
+        "academic_rank": "Professor",
+        "created_at": "2024-08-03T04:01:52.510Z",
+        "updated_at": "2024-08-03T04:01:52.510Z"
+    }
+}
+]

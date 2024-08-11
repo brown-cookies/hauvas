@@ -1,0 +1,90 @@
+[
+{
+    "model": "dashboard.course",
+    "pk": 1,
+    "fields": {
+        "professor": 1,
+        "block": 1,
+        "department": 6,
+        "semester": 1,
+        "title": "Calculus 01",
+        "code": "4711",
+        "codename": "CALC01",
+        "about": "This is about course, populate it later",
+        "syllabus": "This is syllabus course, populate it later",
+        "unit": 5,
+        "start_time": "06:29:30",
+        "end_time": "06:29:29",
+        "days": "D",
+        "room": "undecided",
+        "created_at": "2024-08-03T04:20:27.641Z",
+        "updated_at": "2024-08-03T06:37:07.231Z"
+    }
+},
+{
+    "model": "dashboard.course",
+    "pk": 2,
+    "fields": {
+        "professor": 1,
+        "block": 1,
+        "department": 6,
+        "semester": 1,
+        "title": "Physics 01",
+        "code": "4712",
+        "codename": "PHYSICS01",
+        "about": "This is about course, populate it later",
+        "syllabus": "This is syllabus course, populate it later",
+        "unit": 5,
+        "start_time": "06:29:30.016",
+        "end_time": "06:29:29.958",
+        "days": "D",
+        "room": "undecided",
+        "created_at": "2024-08-03T04:22:15.926Z",
+        "updated_at": "2024-08-03T04:22:15.926Z"
+    }
+},
+{
+    "model": "dashboard.course",
+    "pk": 3,
+    "fields": {
+        "professor": 2,
+        "block": 1,
+        "department": 6,
+        "semester": 1,
+        "title": "Calculus 02",
+        "code": "4713",
+        "codename": "CALC02",
+        "about": "This is about course, populate it later",
+        "syllabus": "This is syllabus course, populate it later",
+        "unit": 5,
+        "start_time": "06:29:30.016",
+        "end_time": "06:29:29.958",
+        "days": "D",
+        "room": "undecided",
+        "created_at": "2024-08-03T04:22:40.725Z",
+        "updated_at": "2024-08-03T04:22:40.725Z"
+    }
+},
+{
+    "model": "dashboard.course",
+    "pk": 4,
+    "fields": {
+        "professor": 2,
+        "block": 1,
+        "department": 6,
+        "semester": 1,
+        "title": "Physics 02",
+        "code": "4714",
+        "codename": "PHYSICS02",
+        "about": "This is about course, populate it later",
+        "syllabus": "This is syllabus course, populate it later",
+        "unit": 5,
+        "start_time": "06:29:30.016",
+        "end_time": "06:29:29.958",
+        "days": "D",
+        "room": "undecided",
+        "created_at": "2024-08-03T04:23:17.260Z",
+        "updated_at": "2024-08-03T04:23:17.260Z"
+    }
+}
+]

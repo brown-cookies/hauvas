@@ -1,0 +1,82 @@
+[
+{
+    "model": "main.department",
+    "pk": 1,
+    "fields": {
+        "name": "College of Criminal Justice Education and Forensic",
+        "abbr": "CCJEF",
+        "created_at": "2024-08-03T03:51:25.484Z",
+        "updated_at": "2024-08-03T03:51:25.484Z"
+    }
+},
+{
+    "model": "main.department",
+    "pk": 2,
+    "fields": {
+        "name": "School of Arts and Sciences",
+        "abbr": "SAS",
+        "created_at": "2024-08-03T03:51:29.708Z",
+        "updated_at": "2024-08-03T03:51:29.708Z"
+    }
+},
+{
+    "model": "main.department",
+    "pk": 3,
+    "fields": {
+        "name": "School of Business and Accountancy",
+        "abbr": "SBA",
+        "created_at": "2024-08-03T03:51:39.604Z",
+        "updated_at": "2024-08-03T03:51:39.604Z"
+    }
+},
+{
+    "model": "main.department",
+    "pk": 4,
+    "fields": {
+        "name": "School of Computing",
+        "abbr": "SOC",
+        "created_at": "2024-08-03T03:51:45.705Z",
+        "updated_at": "2024-08-03T03:51:45.705Z"
+    }
+},
+{
+    "model": "main.department",
+    "pk": 5,
+    "fields": {
+        "name": "School of Education",
+        "abbr": "SED",
+        "created_at": "2024-08-03T03:51:52.011Z",
+        "updated_at": "2024-08-03T03:51:52.011Z"
+    }
+},
+{
+    "model": "main.department",
+    "pk": 6,
+    "fields": {
+        "name": "School of Engineering and Architecture",
+        "abbr": "SEA",
+        "created_at": "2024-08-03T03:52:00.326Z",
+        "updated_at": "2024-08-03T03:52:00.326Z"
+    }
+},
+{
+    "model": "main.department",
+    "pk": 7,
+    "fields": {
+        "name": "School of Hospitality and Tourism Management",
+        "abbr": "SHTM",
+        "created_at": "2024-08-03T03:52:09.634Z",
+        "updated_at": "2024-08-03T03:52:09.634Z"
+    }
+},
+{
+    "model": "main.department",
+    "pk": 8,
+    "fields": {
+        "name": "School of Nursing and Allied Medical Sciences",
+        "abbr": "SNMS",
+        "created_at": "2024-08-03T03:52:18.549Z",
+        "updated_at": "2024-08-03T03:52:18.549Z"
+    }
+}
+]

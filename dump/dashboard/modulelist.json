@@ -1,0 +1,62 @@
+[
+{
+    "model": "dashboard.modulelist",
+    "pk": 1,
+    "fields": {
+        "course": 1,
+        "title": "Preliminary",
+        "created_at": "2024-08-03T10:55:08.816Z",
+        "updated_at": "2024-08-03T10:55:08.816Z"
+    }
+},
+{
+    "model": "dashboard.modulelist",
+    "pk": 2,
+    "fields": {
+        "course": 1,
+        "title": "Midterm",
+        "created_at": "2024-08-03T10:55:16.687Z",
+        "updated_at": "2024-08-03T10:55:16.687Z"
+    }
+},
+{
+    "model": "dashboard.modulelist",
+    "pk": 3,
+    "fields": {
+        "course": 1,
+        "title": "Finals",
+        "created_at": "2024-08-03T10:55:29.522Z",
+        "updated_at": "2024-08-03T10:55:29.522Z"
+    }
+},
+{
+    "model": "dashboard.modulelist",
+    "pk": 4,
+    "fields": {
+        "course": 3,
+        "title": "Preliminary",
+        "created_at": "2024-08-03T10:55:40.249Z",
+        "updated_at": "2024-08-03T10:55:40.249Z"
+    }
+},
+{
+    "model": "dashboard.modulelist",
+    "pk": 5,
+    "fields": {
+        "course": 3,
+        "title": "Midterm",
+        "created_at": "2024-08-03T10:55:49.265Z",
+        "updated_at": "2024-08-03T10:55:49.265Z"
+    }
+},
+{
+    "model": "dashboard.modulelist",
+    "pk": 6,
+    "fields": {
+        "course": 3,
+        "title": "Finals",
+        "created_at": "2024-08-03T10:55:57.986Z",
+        "updated_at": "2024-08-03T10:55:57.986Z"
+    }
+}
+]

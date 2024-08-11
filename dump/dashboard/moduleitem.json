@@ -1,0 +1,86 @@
+[
+{
+    "model": "dashboard.moduleitem",
+    "pk": 1,
+    "fields": {
+        "module_list": 1,
+        "title": "Lesson 01 - Algrebra",
+        "short_description": "Learn the {your explanation about the course}!",
+        "description": "Put your description here about the module, and even content",
+        "content_url": "none",
+        "is_published": false,
+        "created_at": "2024-08-03T10:56:41.338Z",
+        "updated_at": "2024-08-03T10:56:41.338Z"
+    }
+},
+{
+    "model": "dashboard.moduleitem",
+    "pk": 2,
+    "fields": {
+        "module_list": 2,
+        "title": "Lesson 02 - Derivatives",
+        "short_description": "Learn the {your explanation about the course}!",
+        "description": "Put your description here about the module, and even content",
+        "content_url": "none",
+        "is_published": false,
+        "created_at": "2024-08-03T10:56:59.133Z",
+        "updated_at": "2024-08-03T10:56:59.133Z"
+    }
+},
+{
+    "model": "dashboard.moduleitem",
+    "pk": 3,
+    "fields": {
+        "module_list": 3,
+        "title": "Lesson 03 - Application of Derivatives",
+        "short_description": "Learn the {your explanation about the course}!",
+        "description": "Put your description here about the module, and even content",
+        "content_url": "none",
+        "is_published": false,
+        "created_at": "2024-08-03T10:57:51.081Z",
+        "updated_at": "2024-08-03T10:57:51.081Z"
+    }
+},
+{
+    "model": "dashboard.moduleitem",
+    "pk": 4,
+    "fields": {
+        "module_list": 4,
+        "title": "Lesson 01 - Basics of Integral",
+        "short_description": "Learn the {your explanation about the course}!",
+        "description": "Put your description here about the module, and even content",
+        "content_url": "none",
+        "is_published": false,
+        "created_at": "2024-08-03T10:58:09.730Z",
+        "updated_at": "2024-08-03T10:58:09.730Z"
+    }
+},
+{
+    "model": "dashboard.moduleitem",
+    "pk": 5,
+    "fields": {
+        "module_list": 5,
+        "title": "Lesson 02 - Integral of Trigonometric and Inverse Trigonometric Functions",
+        "short_description": "Learn the {your explanation about the course}!",
+        "description": "Put your description here about the module, and even content",
+        "content_url": "none",
+        "is_published": false,
+        "created_at": "2024-08-03T10:58:53.619Z",
+        "updated_at": "2024-08-03T10:58:53.619Z"
+    }
+},
+{
+    "model": "dashboard.moduleitem",
+    "pk": 6,
+    "fields": {
+        "module_list": 6,
+        "title": "Lesson 03 - Volume of Spehircal Shapes (Application of Integral)",
+        "short_description": "Learn the {your explanation about the course}!",
+        "description": "Put your description here about the module, and even content",
+        "content_url": "none",
+        "is_published": false,
+        "created_at": "2024-08-03T10:59:28.948Z",
+        "updated_at": "2024-08-03T10:59:28.949Z"
+    }
+}
+]

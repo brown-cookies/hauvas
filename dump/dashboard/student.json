@@ -1,0 +1,32 @@
+[
+{
+    "model": "dashboard.student",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "block": 1,
+        "department": 6,
+        "major": "Bachelor of Science Major in Computer Engineering",
+        "year": 2,
+        "academic_status": "Active",
+        "is_graduated": false,
+        "created_at": "2024-08-03T04:02:30.274Z",
+        "updated_at": "2024-08-03T04:02:30.274Z"
+    }
+},
+{
+    "model": "dashboard.student",
+    "pk": 2,
+    "fields": {
+        "user": 3,
+        "block": 1,
+        "department": 6,
+        "major": "Bachelor of Science Major in Computer Engineering",
+        "year": 2,
+        "academic_status": "Active",
+        "is_graduated": false,
+        "created_at": "2024-08-03T04:02:49.527Z",
+        "updated_at": "2024-08-03T04:02:49.527Z"
+    }
+}
+]
