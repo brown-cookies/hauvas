@@ -1,0 +1,18 @@
+{% extends "error/base.html" %}
+
+{% load static %}
+
+{% block title %} 400 - Bad Request {% endblock title %}
+
+{% block content %}
+<div class="error-page container">
+    <div class="col-md-8 col-12 offset-md-2">
+        <div class="text-center">
+            <img class="img-error" src="{% static './illustrations/access_denied.svg' %}" alt="Forbidden">
+            <h1 class="error-title">Bad Request</h1>
+            <p class="fs-5 text-gray-600">The server could not understand your request. Please check the request and try again.</p>
+            <a href="{% url "dashboard:dashboard" %}" class="btn btn-lg btn-outline-primary mt-3">Go Home</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

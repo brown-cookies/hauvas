@@ -5,3 +5,7 @@ db.sqlite3
 dist/
 static_my_project/*
 venv/*
+
+# Environment Variables
+.env
+.env.production

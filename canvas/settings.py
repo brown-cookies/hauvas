@@ -11,26 +11,48 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from enum import Enum
+from dotenv import load_dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# ENVIRONMENT OPTIONS
+class Env(Enum):
+    LOCAL = "local"
+    PRODUCTION = "production"
+    STAGING = "staging"
+    TESTING = "testing"
+
+
+# loading .env files
+load_dotenv()
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-b(3e8wi+f29*3dvi0+p6dqan%!g)zau=w+8tl#g6xw37wwx5re"
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("APP_DEBUG"))
+
+# Config that specifies the current environment the application is running in.
+# local: Used for local development. (default)
+# production: Used when the application is deployed in a live environment.
+# staging: Used for testing changes before deploying them to production.
+# testing: Used for running automated tests.
+ENVIRONMENT = os.getenv("APP_ENV") or "local"
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = (
+    os.getenv("APP_KEY")
+    if not DEBUG
+    else "django-insecure-b(3e8wi+f29*3dvi0+p6dqan%!g)zau=w+8tl#g6xw37wwx5re"
+)
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     "grappelli",
     "django.contrib.admin",
@@ -72,7 +94,7 @@ ROOT_URLCONF = "canvas.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [BASE_DIR / "templates"],
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -106,16 +128,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "canvas.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# Use production database
+if not DEBUG and ENVIRONMENT == Env.PRODUCTION:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "OPTIONS": {
+                "service": "my_service",
+                "passfile": ".my_pgpass",
+            },
+        }
+    }
+
 
 #  Message Storage
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
@@ -127,6 +158,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Session Default Age (Default = 7 Days)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7
 
 # Use secure cookies if you are on HTTPS

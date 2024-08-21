@@ -6,7 +6,6 @@
     "todos",
     "viewsets"
   ],
-  "tabnine.debounceMilliseconds": 1250,
   "editor.tabSize": 4,
   "editor.quickSuggestions": {
     "other": "off",
@@ -14,10 +13,20 @@
     "strings": "off"
   },
   "editor.quickSuggestionsDelay": 3000,
-  "editor.suggest.showWords": false,
+  "editor.suggest.showWords": true,
   "editor.suggest.showConstants": false,
   "editor.suggest.showFiles": false,
   "editor.suggest.showColors": false,
   "editor.suggest.showUnits": false,
-  "editor.suggest.showFolders": false
+  "editor.suggest.showFolders": false,
+  "[django-html]": {
+    "editor.defaultFormatter": "HookyQR.beautify",
+    "editor.quickSuggestions": {
+      "comments": true,
+      "other": true,
+      "strings": true
+    },
+    "editor.tabSize": 4,
+    "editor.wordWrap": "on"
+  }
 }

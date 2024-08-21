@@ -2,13 +2,152 @@
 
 {% load static %} 
 
-{% block title %} {{ title }} {% endblock %} 
-
-{% block extra_css %}
-
-{% endblock extra_css %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Updating {{ course.title }} | {{ course.codename }} 'About the Course'</h3>
+                            <p class="card-text">Accepts HTML and Markdown</p>
+                            <br />
+
+                            {% if form_success %}
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <span class="fs-5"><i class="bi bi-check-circle"></i> Success Updating About the Course Content!<span>
+                                    <a href="{% url 'dashboard:course-home' course_id=course.id %}">Go back?</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+
+                            <form method="POST" action="{% url 'dashboard:course-home-update' course_id=course.id %}">
+                                {% csrf_token %}
+                                {{ form.content }}
+                                <div id="editor"></div>
+                                <br />
+                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
-{% block extra_js %}{% endblock extra_js %}
+{% block extra_js %}
+<script src="{% static './js/QuillDeltaToHtmlConverter.bundle.js' %}"></script>
+
+<script>
+    let content_textarea = $("#id_content");
+    let toolbarOptions = [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+        [{ 'list': 'bullet' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+        ['clean'],                                         // remove formatting button
+        ['link', 'image', 'video'],
+        ['spanblock']
+];
+
+    const quill_config = {
+        modules: { toolbar: toolbarOptions },
+        theme: 'snow'
+    };
+
+    const delta_html_config = {
+        customCssClasses: (op) => {
+            let classes = [];
+
+            if (op.attributes && op.attributes.bold) {
+                classes.push('my-bold-class');
+            }
+
+            if (op.attributes && op.attributes.italic) {
+            classes.push('my-italic-class');
+            }
+
+            if (op.attributes && op.attributes.underline) {
+                classes.push('my-underline-class');
+            }
+
+            if (op.attributes && op.attributes.strike) {
+                classes.push('my-strike-class');
+            }
+
+            if (op.attributes && op.attributes.header) {
+            classes.push(`my-header-class-${op.attributes.header}`);
+            }
+
+            if (op.attributes && op.attributes.size) {
+                switch (op.attributes.size) {
+                    case 'small':
+                        classes.push('my-small-class');
+                        break;
+                    case 'large':
+                        classes.push('my-large-class');
+                        break;
+                    case 'hueg':
+                        classes.push('my-huge-class');
+                        break;
+                }
+            }
+
+            if (op.attributes && op.attributes.list) {
+                classes.push(`my-list-class-${op.attributes.list}`);
+            }
+
+
+
+            return classes.join(' ');
+        }
+    }
+
+    const quill = new Quill('#editor', quill_config);
+
+    function debounce(func, delay) {
+        let timeoutId;
+
+        return function (...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+
+    function quill_on_text_change(delta, oldDelta, source) {
+        contents = quill.getContents()
+        const converter = new QuillDeltaToHtmlConverter(contents.ops, delta_html_config);
+        let html = converter.convert()
+
+        // Modify HTML to add classes to parent list items
+        html = html.replace(/<li>/g, '<li class="my-list-item-class">');
+
+        // Adding a class specifically for parent items
+        html = html.replace(/<ol class="my-list-item-class">(.+?)<\/ol>/g, '<ol class="my-list-item-class my-parent-list-class">$1</ol>');
+        html = html.replace(/<ul>(.+?)<\/ul>/g, '<ul class="my-list-item-class my-parent-list-class">$1</ul>');
+
+        ops_json = JSON.stringify(contents)
+
+        content_textarea.val(ops_json)
+
+        console.log(html)
+    }
+
+    const debouncedTextChange = debounce(quill_on_text_change, 1750);
+
+    quill.on('text-change', (delta, oldDelta, source) => {
+        debouncedTextChange(delta, oldDelta, source);
+    });
+
+</script>
+{% endblock extra_js %}

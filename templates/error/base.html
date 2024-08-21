@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} Title Here {% endblock title %}
+    </title>
+    <link rel="icon" href="{% static '/favicon.ico' %}">
+    <link rel="stylesheet" crossorigin href="{% static './css/bootstrap.css' %}">
+    <link rel="stylesheet" crossorigin href={% static './css/error.css' %}>
+</head>
+<body>
+    <script src="{% static './js/initTheme.js' %}"></script>
+    <div id="error">
+        {% block content %}{% endblock content %}
+    </div>
+</body>
+</html>

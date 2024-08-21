@@ -1,5 +1,6 @@
 <a href="{% url 'dashboard:course-home' course_id=course.id %}" class="list-group-item list-group-item-action {% if sub_link == "home" %} rounded-3 active {% else %} bg-transparent {% endif %}">Home</a>
 <a href="{% url 'dashboard:course-syllabus' course_id=course.id %}" class="list-group-item list-group-item-action {% if sub_link == "syllabus" %} rounded-3 active {% else %} bg-transparent {% endif %}">Syllabus</a>
+<a href="{% url 'dashboard:course-people' course_id=course.id %}" class="list-group-item list-group-item-action {% if sub_link == "people" %} rounded-3 active {% else %} bg-transparent {% endif %}">People</a>
 <a href="{% url 'dashboard:course-announcement' course_id=course.id %}" class="list-group-item list-group-item-action {% if sub_link == "announcement" %} rounded-3 active {% else %} bg-transparent {% endif %}">Announcements</a>
 <a href="{% url 'dashboard:course-assignment' course_id=course.id %}" class="list-group-item list-group-item-action {% if sub_link == "assignment" %} rounded-3 active {% else %} bg-transparent {% endif %}">Assignments</a>
 <a href="{% url 'dashboard:course-module' course_id=course.id %}" class="list-group-item list-group-item-action {% if sub_link == "module" %} rounded-3 active {% else %} bg-transparent {% endif %}">Modules</a>

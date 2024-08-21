@@ -1,0 +1,103 @@
+{% extends "base/base.html" %} 
+
+{% load static %} 
+
+{% block title %} {{ title }} {% endblock %} 
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="d-block d-lg-none">
+                <div class="position-relative w-100">
+                    <button class="position-relative end-0 btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#sub-menu-collapse" aria-expanded="false" aria-controls="sub-menu-collapse">
+                        Open Navigation
+                    </button>
+                </div>
+                <div class="collapse" id="sub-menu-collapse">
+                    <div class="list-group list-group-flush">
+                        {% component "professor_sub_list" %}{% endcomponent %}
+                    </div>
+                </div>
+            </div>
+            <div class="list-group list-group-flush d-none d-lg-block">
+                {% component "professor_sub_list" %}{% endcomponent %}
+            </div>
+        </div>
+        <div class="col-lg-10">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ course.title }} | {{ course.codename }} People
+                                </div>
+                            </h3>
+                            <p class="card-text">{{ course.semester.term }} Semester {{ course.semester.start_year }}-{{ course.semester.end_year }}</p>
+
+                            <br />
+
+                            <div class="row gap-3 gap-lg-0">
+                                <div class="col-12 col-lg-6">
+                                    <h5 class="card-subtitle mb-2 text-body-secondary">Professor</h5>
+                                    <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="user-menu d-flex align-items-center">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <div class="avatar avatar-lg bg-secondary">
+                                                    <span class="avatar-content">
+                                                        {{ professor.profile.first_name|make_list|first }}{{ professor.profile.last_name|make_list|first }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="user-name text-start ms-3">
+                                                <h6 class="mb-0 text-gray-600">
+                                                    {{professor.profile.first_name}} {{professor.profile.last_name}}
+                                                </h6>
+                                                <p class="mb-0 text-sm text-gray-600">
+                                                    Professor 
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <h5 class="card-subtitle mb-2 text-body-secondary">Student/s</h5>
+                                    {% for student in students %}
+                                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <div class="user-menu d-flex align-items-center">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <div class="avatar avatar-lg bg-secondary">
+                                                        <span class="avatar-content">
+                                                            {{ student.profile.first_name|make_list|first }}{{ student.profile.last_name|make_list|first }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="user-name text-start ms-3">
+                                                    <h6 class="mb-0 text-gray-600">
+                                                        {{student.profile.first_name}} {{student.profile.last_name}}
+                                                    </h6>
+                                                    <p class="mb-0 text-sm text-gray-600">
+                                                        Student 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}{% endblock extra_js %}

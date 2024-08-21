@@ -1,7 +1,14 @@
+from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from common.util.get_courses import get_courses
+from common.util.group import UserGroup
+from common.util.decorators import allowed_roles
 
 
+@method_decorator(
+    allowed_roles(roles=[UserGroup.PROFESSOR, UserGroup.STUDENT]), name="dispatch"
+)
 class View(LoginRequiredMixin):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

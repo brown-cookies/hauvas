@@ -1,24 +1,16 @@
-from common.util.views import View
-from django.views.generic import TemplateView
 from django.shortcuts import render
-from dashboard.models import Course
+
+from dashboard.util.view import DashboardParentView
 
 
-class Syllabus(View, TemplateView):
+class Syllabus(DashboardParentView):
     template_name = "dashboard/syllabus/detail.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        course_id = kwargs.pop("course_id", None)
-
-        course = Course.objects.get(pk=course_id)
-
-        context["title"] = f"{course.title} Syllabus"
-        context["link"] = "course"
+        context["title"] = f"{context['title']} Syllabus"
         context["sub_link"] = "syllabus"
-
-        context["course"] = course
 
         return context
 
@@ -27,3 +19,17 @@ class Syllabus(View, TemplateView):
         context = self.get_context_data(*args, **kwargs)
 
         return render(request, self.template_name, context)
+
+
+class SyllabusUpdate(DashboardParentView):
+    template_name = "dashboard/syllabus/update.html"
+
+    permission_denied_message = (
+        "You're not allowed to view and edit this course syllabus!"
+    )
+
+    def __init__(self):
+        permissions = ["dashboard.change_syllabus"]
+        self.permission_required = self.override_permissions_required(
+            permissions=permissions
+        )

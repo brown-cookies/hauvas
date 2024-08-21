@@ -108,6 +108,12 @@ class Course(models.Model):
     def __str__(self):
         return f"{self.professor.user.profile.first_name} | {self.code}:{self.codename} - {self.title}"
 
+    class Meta:
+        permissions = [
+            ("change_about", "Can change the about course"),
+            ("change_syllabus", "Can change the syllabus of the course"),
+        ]
+
 
 class Enrollment(models.Model):
     STATUS_CHOICES = [

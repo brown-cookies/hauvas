@@ -31,23 +31,23 @@
         <div class="col-lg-10">
         {% comment %} Content Here {% endcomment %}
         <div class="row">
-          <div class="col-xs-1-12">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="card-title">
-                    <div class="hstack gap-3 d-flex justify-content-between">
-                        {{ course.title }} Syllabus
-                        {% if user.profile.is_professor %}
-                            <a href="#" class="btn btn-success">Edit</a>
-                        {% endif %}
-                    </div>
-                </h3>
+            <div class="col-xs-1-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <div class="hstack gap-3 d-flex justify-content-between">
+                                {{ course.title }} Syllabus
+                                {% if perms.dashboard.change_syllabus %}
+                                    <a href="#" class="btn btn-success">Edit</a>
+                                {% endif %}
+                            </div>
+                        </h3>
 
-                <br />
-                <p class="text-justify lh-base">{{ course.syllabus }}</p>
-              </div>
+                        <br />
+                        <p class="text-justify lh-base">{{ course.syllabus }}</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
         </div>
     </div>
