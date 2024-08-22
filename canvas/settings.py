@@ -34,7 +34,7 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("APP_DEBUG"))
+DEBUG = bool(os.getenv("APP_DEBUG")) or True
 
 # Config that specifies the current environment the application is running in.
 # local: Used for local development. (default)

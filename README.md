@@ -122,8 +122,8 @@
 
 6. Apply migrations:
     ```bash
-    python manage.py migrate
     ```
+    python manage.py migrate
 
 7. Create Superuser:
    ```bash
