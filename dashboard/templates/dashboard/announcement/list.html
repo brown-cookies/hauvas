@@ -92,7 +92,7 @@
 
                             <div class="list-group">
                                 {% for announcement in page_obj %}
-                                    <a href="#" class="position-relative list-group-item list-group-item-action p-3 d-flex flex-row align-items-center" aria-current="true">
+                                    <a href="{% url 'dashboard:course-announcement-detail' course_id=course.id announcement_id=announcement.id %}" class="position-relative list-group-item list-group-item-action p-3 d-flex flex-row align-items-center" aria-current="true">
                                         <div class="me-3">
                                             <div class="avatar avatar-lg bg-success">
                                                 <span class="avatar-content">

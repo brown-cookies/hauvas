@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
 from django.core.paginator import Paginator
 
 from dashboard.util.view import DashboardParentView
 from dashboard.forms.announcement.create import CreateAnnouncementForm
+
+from announcement.models import Announcement as AnnouncementModel
 
 
 class Announcement(DashboardParentView):
@@ -46,6 +48,11 @@ class AnnouncementDetail(DashboardParentView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+        announcement_id = kwargs.pop("announcement_id", None)
+
+        announcement_instance = get_object_or_404(AnnouncementModel, pk=announcement_id)
+
+        context["announcement"] = announcement_instance
 
         return render(request, self.template_name, context)
 

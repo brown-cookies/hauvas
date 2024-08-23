@@ -100,10 +100,13 @@
                                             </div>
                                             <div class="user-name text-start ms-3">
                                                 <h6 class="mb-0 text-gray-600">
-                                                    AUTHOR | Katherine Frigillana
+                                                    AUTHOR | {{ announcement.course.professor.user.profile.first_name }} {{ announcement.course.professor.user.profile.last_name }}
                                                 </h6>
                                                 <p class="mb-0 text-sm text-gray-600">
-                                                    Aug 16, 2024
+                                                    {{ announcement.short_description }}
+                                                </p>
+                                                <p class="mb-0 text-sm text-gray-600">
+                                                    {{ announcement.posted_at }}
                                                 </p>
                                             </div>
                                         </div>
@@ -121,11 +124,8 @@
                                     <br />
 
                                     <div class="mt-5">
-                                        <h2>Hello, World! This is a header shit!</h2>
-                                        <br />
-                                        <p>Hello Class!</p>
-                                        <p>Kindly refer to our facebook group page regarding the video uploaded for Basic Methods for Making Economy Studies. If there are any questions regarding the said topic, feel free to message me. CA6 and CA7 are now published for your asynchronous. </p>
-                                        <p>Be reminded that this is posted not in line with the current time posted but for your perusal during our class schedule. Good day!!</p>
+                                        <p id="about-content"></p>
+                                        <span data-content="{{ announcement.content }}"></span>
                                     </div>
 
                                     <div>
@@ -145,4 +145,74 @@
 </div>
 {% endblock content %}
 
-{% block extra_js %}{% endblock extra_js %}
+{% block extra_js %}
+<script src="{% static './js/QuillDeltaToHtmlConverter.bundle.js' %}"></script>
+
+
+<script>
+    $(function() {
+        const about_content = $("#about-content")
+        const span_element = $("[data-content]")
+        const content = span_element.attr("data-content")
+        const json_content = JSON.parse(content)
+
+        const delta_html_config = {
+            customCssClasses: (op) => {
+                let classes = [];
+    
+                if (op.attributes && op.attributes.bold) {
+                    classes.push('fw-semibold');
+                }
+    
+                if (op.attributes && op.attributes.italic) {
+                classes.push('fst-italic');
+                }
+    
+                if (op.attributes && op.attributes.underline) {
+                    classes.push('my-underline-class');
+                }
+    
+                if (op.attributes && op.attributes.strike) {
+                    classes.push('my-strike-class');
+                }
+    
+                if (op.attributes && op.attributes.header) {
+                classes.push(`fs-${op.attributes.header}`);
+                }
+    
+                if (op.attributes && op.attributes.size) {
+                    switch (op.attributes.size) {
+                        case 'small':
+                            classes.push('my-small-class');
+                            break;
+                        case 'large':
+                            classes.push('my-large-class');
+                            break;
+                        case 'huge':
+                            classes.push('my-huge-class');
+                            break;
+                    }
+                }
+    
+                if (op.attributes && op.attributes.list) {
+                    classes.push(`list-group-item`);
+                }
+    
+    
+    
+                return classes.join(' ');
+            }
+        }
+
+        const converter = new QuillDeltaToHtmlConverter(json_content.ops, delta_html_config);
+        let html = converter.convert()
+
+        html = html.replace(/<li>/g, '<li class="my-list-item-class">');
+
+        html = html.replace(/<ul>(.+?)<\/ul>/g, '<ul class="list-group-flush">$1</ul>');
+
+        span_element.remove()
+        about_content.html(html)
+    })
+</script>
+{% endblock extra_js %}
