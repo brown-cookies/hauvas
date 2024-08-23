@@ -10,8 +10,14 @@ class CreateAnnouncementForm(forms.ModelForm):
         )
     )
 
+    short_description = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Short description..."}
+        )
+    )
+
     content = forms.CharField(widget=forms.Textarea(attrs={"class": "d-none"}))
 
     class Meta:
         model = Announcement
-        fields = ["title", "content"]
+        fields = ["title", "short_description", "content"]

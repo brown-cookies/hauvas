@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 from dashboard.util.view import DashboardParentView
 from dashboard.forms.announcement.create import CreateAnnouncementForm
@@ -19,6 +21,13 @@ class Announcement(DashboardParentView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+        course = context["course"]
+        page_number = request.GET.get("page", 1)
+        announcements = course.announcements.all().order_by("-created_at")
+        paginator = Paginator(announcements, 10)
+        page_obj = paginator.get_page(page_number)
+
+        context["page_obj"] = page_obj
 
         return render(request, self.template_name, context)
 
