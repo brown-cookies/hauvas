@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.contrib import messages
 
 from dashboard.util.view import DashboardParentView
+from dashboard.forms.announcement.create import CreateAnnouncementForm
 
 
 class Announcement(DashboardParentView):
@@ -54,6 +56,33 @@ class AnnouncementCreate(DashboardParentView):
 
         context = self.get_context_data(*args, **kwargs)
 
+        form = CreateAnnouncementForm()
+
+        context["form"] = form
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        form = CreateAnnouncementForm(data=request.POST)
+        course = context["course"]
+
+        context["form"] = form
+
+        if not form.is_valid():
+            messages.error(request, "Invalid!")
+            return render(request, self.template_name, context)
+
+        announcement_instance = form.save(commit=False)
+        announcement_instance.course = course
+
+        announcement_instance.save()
+
+        context["form_success"] = True
+
+        messages.success(request, "Announcement Created!")
         return render(request, self.template_name, context)
 
 

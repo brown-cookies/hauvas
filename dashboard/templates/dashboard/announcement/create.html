@@ -41,6 +41,39 @@
                             </h3>
 
                             <br />
+
+                            {% if form_success %}
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <span class="fs-6"><i class="bi bi-check-circle"></i> Success creating announcement!<span>
+                                    <a href="{% url 'dashboard:course-announcement' course_id=course.id %}">Go back?</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+
+                            <form action="{% url 'dashboard:course-announcement-create' course_id=course.id %}" method="POST">
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                                    {{ form.title }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.title.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form.content }}
+                                    <div id="editor"></div>
+                                    <div class="invalid-feedback">
+                                        {% for error in form.content.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -50,4 +83,39 @@
 </div>
 {% endblock content %}
 
-{% block extra_js %}{% endblock extra_js %}
+{% block extra_js %}
+<script src="{% static './js/debounce.js' %}"></script>
+<script src="{% static './js/QuillDeltaToHtmlConverter.bundle.js' %}"></script>
+
+<script>
+    let content_textarea = $("#id_content");
+    let toolbarOptions = [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        [{ 'list': 'bullet' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+    ];
+
+    const quill_config = {
+        modules: { toolbar: toolbarOptions },
+        theme: 'snow'
+    };
+
+    const quill = new Quill('#editor', quill_config);
+
+    function quill_on_text_change(delta, oldDelta, source) {
+        contents = quill.getContents()
+
+        ops_json = JSON.stringify(contents)
+        content_textarea.val(ops_json)
+    }
+
+    const debouncedTextChange = debounce(quill_on_text_change, 700);
+
+    quill.on('text-change', (delta, oldDelta, source) => {
+        debouncedTextChange(delta, oldDelta, source);
+    });
+
+</script>
+{% endblock extra_js %}
