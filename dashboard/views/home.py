@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 
 from dashboard.util.view import DashboardParentView
 
@@ -56,10 +57,18 @@ class HomeUpdate(DashboardParentView):
 
         form = HomeUpdateForm(data=request.POST)
 
-        if form.is_valid():
-            print("The content is")
-            print(form.cleaned_data["content"])
-        else:
-            print("Not valid!")
+        if not form.is_valid():
+            messages.error(request, "Invalid Content!")
+            return render(request, self.template_name, context)
 
+        course = context["course"]
+        content = form.cleaned_data["content"]
+
+        course.about = content
+
+        course.save()
+
+        context["form_success"] = True
+
+        messages.success(request, "About Changed!")
         return render(request, self.template_name, context)
