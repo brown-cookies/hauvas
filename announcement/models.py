@@ -9,6 +9,7 @@ class Announcement(models.Model):
         related_name="announcements",
     )
     title = models.CharField(max_length=254)
+    short_description = models.CharField(max_length=254, blank=True)
     content = models.TextField()
     posted_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
