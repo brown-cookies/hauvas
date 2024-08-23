@@ -50,11 +50,13 @@
                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                             data-bs-toggle="dropdown" aria-expanded="false"></button>
                                         <ul class="dropdown-menu border">
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="fa fa-plus mb-2"></i> New
-                                                </a>
-                                            </li>
+                                            {% if perms.announcement.add_announcement %}
+                                                <li>
+                                                    <a class="dropdown-item" href="{% url 'dashboard:course-announcement-create' course_id=course.id %}">
+                                                        <i class="fa fa-plus mb-2"></i> New
+                                                    </a>
+                                                </li>
+                                            {% endif %}
                                             <li>
                                                 <a class="dropdown-item" href="#">
                                                     <i class="fa fa-inbox mb-2"></i> Mark All as Read
