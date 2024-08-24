@@ -56,7 +56,7 @@ announcementurls = [
         name="course-announcement-create",
     ),
     path(
-        "course/<int:course_id>/announcements/update/",
+        "course/<int:course_id>/announcements/<int:announcement_id>/update/",
         AnnouncementUpdate.as_view(),
         name="course-announcement-update",
     ),

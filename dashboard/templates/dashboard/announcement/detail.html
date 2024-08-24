@@ -115,8 +115,7 @@
                                                 <i class="fa fa-bars"></i>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Mark as Read</a></li>
-                                                <li><a class="dropdown-item" href="#">Mark as Unread</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'dashboard:course-announcement-update' course_id=course.id announcement_id=announcement.id %}">Edit</a></li>
                                             </ul>
                                         </div>
                                     </div>

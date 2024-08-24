@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 
 from dashboard.util.view import DashboardParentView
 from dashboard.forms.announcement.create import CreateAnnouncementForm
+from dashboard.forms.announcement.update import UpdateAnnouncementForm
 
 from announcement.models import Announcement as AnnouncementModel
 
@@ -83,13 +84,14 @@ class AnnouncementCreate(DashboardParentView):
         context = self.get_context_data(*args, **kwargs)
 
         form = CreateAnnouncementForm(data=request.POST)
-        course = context["course"]
-
-        context["form"] = form
 
         if not form.is_valid():
             messages.error(request, "Invalid!")
             return render(request, self.template_name, context)
+
+        course = context["course"]
+
+        context["form"] = form
 
         announcement_instance = form.save(commit=False)
         announcement_instance.course = course
@@ -117,4 +119,41 @@ class AnnouncementUpdate(DashboardParentView):
 
         context = self.get_context_data(*args, **kwargs)
 
+        form = UpdateAnnouncementForm()
+
+        announcement_id = kwargs.pop("announcement_id", None)
+        announcement_instance = get_object_or_404(AnnouncementModel, pk=announcement_id)
+
+        context["form"] = form
+        context["announcement"] = announcement_instance
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        form = UpdateAnnouncementForm(data=request.POST)
+
+        if not form.is_valid():
+            messages.error(request, "Invalid!")
+            return render(request, self.template_name, context)
+
+        course = context["course"]
+
+        announcement_id = kwargs.pop("announcement_id", None)
+        announcement_instance = get_object_or_404(AnnouncementModel, pk=announcement_id)
+
+        announcement_instance.title = form.cleaned_data["title"]
+        announcement_instance.short_description = form.cleaned_data["short_description"]
+        announcement_instance.content = form.cleaned_data["content"]
+
+        announcement_instance.save()
+
+        context["form_success"] = True
+
+        context["form"] = form
+        context["announcement"] = announcement_instance
+
+        messages.success(request, "Announcement Updated!")
         return render(request, self.template_name, context)
