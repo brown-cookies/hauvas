@@ -9,6 +9,140 @@
 {% endblock extra_css %}
 
 {% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="d-block d-lg-none">
+                <div class="position-relative w-100">
+                    <button class="position-relative end-0 btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#sub-menu-collapse" aria-expanded="false" aria-controls="sub-menu-collapse">
+                        Open Navigation
+                    </button>
+                </div>
+                <div class="collapse" id="sub-menu-collapse">
+                    <div class="list-group list-group-flush">
+                        {% component "professor_sub_list" %}{% endcomponent %}
+                    </div>
+                </div>
+            </div>
+            <div class="list-group list-group-flush d-none d-lg-block">
+                {% component "professor_sub_list" %}{% endcomponent %}
+            </div>
+        </div>
+        <div class="col-lg-10">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ course.title }} Announcements
+                                </div>
+                            </h3>
+
+                            <br />
+
+                            <div class="row">
+                                <div class="col-12 mb-1">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search mb-2"></i></span>
+                                        <input type="text" class="form-control form-control-lg" placeholder="Search Announcements..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu border">
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="fa fa-plus mb-2"></i> New
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="fa fa-inbox mb-2"></i> Mark All as Read
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    All
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    Unread
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    Starred
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    Trashed
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group">
+                                <li href="#" class="position-relative list-group-item list-group-item-action p-3 d-flex flex-column" aria-current="true">
+                                    <div class="d-flex flex-row align-items-center position-relative w-100">
+                                        <div class="user-menu d-flex align-items-center">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <div class="avatar avatar-lg bg-success">
+                                                    <span class="avatar-content">
+                                                        TE
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="user-name text-start ms-3">
+                                                <h6 class="mb-0 text-gray-600">
+                                                    AUTHOR | Katherine Frigillana
+                                                </h6>
+                                                <p class="mb-0 text-sm text-gray-600">
+                                                    Aug 16, 2024
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown position-absolute end-0 me-2">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-bars"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Mark as Read</a></li>
+                                                <li><a class="dropdown-item" href="#">Mark as Unread</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="mt-5">
+                                        <h2>Hello, World! This is a header shit!</h2>
+                                        <br />
+                                        <p>Hello Class!</p>
+                                        <p>Kindly refer to our facebook group page regarding the video uploaded for Basic Methods for Making Economy Studies. If there are any questions regarding the said topic, feel free to message me. CA6 and CA7 are now published for your asynchronous. </p>
+                                        <p>Be reminded that this is posted not in line with the current time posted but for your perusal during our class schedule. Good day!!</p>
+                                    </div>
+
+                                    <div>
+                                        <button class="btn btn-primary">Reply</button>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <br />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
 {% block extra_js %}{% endblock extra_js %}

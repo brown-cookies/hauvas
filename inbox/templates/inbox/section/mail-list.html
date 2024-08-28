@@ -1,0 +1,193 @@
+{% load static %}
+
+<ul class="users-list-wrapper media-list">
+    <li class="media mail-read">
+      <div class="user-action">
+        <div class="checkbox-con me-3">
+          <div
+            class="checkbox checkbox-shadow checkbox-sm"
+          >
+            <input
+              type="checkbox"
+              id="checkboxsmall1"
+              class="form-check-input"
+            />
+            <label for="checkboxsmall1"></label>
+          </div>
+        </div>
+        <span class="favorite text-warning">
+          <i class="bi bi-star-fill"></i>
+        </span>
+      </div>
+      <div class="pr-50">
+        <div class="avatar">
+          <img
+            src="{% static './jpg/1.jpg' %}"
+            alt="avtar img holder"
+          />
+        </div>
+      </div>
+      <div class="media-body">
+        <div class="user-details">
+          <div class="mail-items">
+            <span
+              class="list-group-item-text text-truncate"
+              >Open source project public release
+              👍</span
+            >
+          </div>
+          <div class="mail-meta-item">
+            <span class="float-right">
+              <span class="mail-date">4:14 AM</span>
+            </span>
+          </div>
+        </div>
+        <div class="mail-message">
+          <p class="list-group-item-text truncate mb-0">
+            Hey John, bah kivu decrete epanorthotic
+            unnotched Argyroneta nonius veratrine
+            preimaginary
+          </p>
+          <div class="mail-meta-item">
+            <span class="float-right">
+              <span
+                class="bullet bullet-success bullet-sm"
+              ></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="media mail-read">
+      <div class="user-action">
+        <div class="checkbox-con me-3">
+          <div
+            class="checkbox checkbox-shadow checkbox-sm"
+          >
+            <input
+              type="checkbox"
+              id="checkboxsmall2"
+              class="form-check-input"
+            />
+            <label for="checkboxsmall2"></label>
+          </div>
+        </div>
+        <span class="favorite">
+          <i class="bi bi-star-fill"></i>
+        </span>
+      </div>
+      <div class="pr-50">
+        <div class="avatar">
+          <img
+            class="rounded-circle"
+            src="{% static './jpg/3.jpg' %}"
+            alt="Generic placeholder image"
+          />
+        </div>
+      </div>
+      <div class="media-body">
+        <div class="user-details">
+          <div class="mail-items">
+            <span
+              class="list-group-item-text text-truncate"
+              >Ecommerce website Paypal integration
+              😃</span
+            >
+          </div>
+          <div class="mail-meta-item">
+            <span class="float-right">
+              <span class="mail-date">2:15 AM</span>
+            </span>
+          </div>
+        </div>
+        <div class="mail-message">
+          <p class="list-group-item-text mb-0 truncate">
+            We will start the new application
+            development soon once this will be
+            completed.
+          </p>
+          <div class="mail-meta-item">
+            <span class="float-right">
+              <span
+                class="bullet bullet-danger bullet-sm"
+              ></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="media">
+      <div class="user-action">
+        <div class="checkbox-con me-3">
+          <div
+            class="checkbox checkbox-shadow checkbox-sm"
+          >
+            <input
+              type="checkbox"
+              id="checkboxsmall3"
+              class="form-check-input"
+            />
+            <label for="checkboxsmall3"></label>
+          </div>
+        </div>
+        <span class="favorite">
+          <i class="bi bi-star-fill"></i>
+        </span>
+      </div>
+      <div class="pr-50">
+        <div class="avatar">
+          <img
+            class="rounded-circle"
+            src="{% static './jpg/7.jpg' %}"
+            alt="Generic placeholder image"
+          />
+        </div>
+      </div>
+      <div class="media-body">
+        <div class="user-details">
+          <div class="mail-items">
+            <span
+              class="list-group-item-text text-truncate"
+              >How To Set Intentions That Energize
+              You</span
+            >
+          </div>
+          <div class="mail-meta-item">
+            <span class="float-right">
+              <span class="mail-date">2:15 AM</span>
+            </span>
+          </div>
+        </div>
+        <div class="mail-message">
+          <p class="list-group-item-text mb-0 truncate">
+            I will provide you more details after this
+            Saturday. Hope that will be fine for you..
+          </p>
+          <div class="mail-meta-item">
+            <span
+              class="float-right d-flex align-items-center"
+            >
+              <i class="bi bi-paperclip me-3"></i>
+              <span
+                class="bullet bullet-success bullet-sm"
+              ></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </li>
+</ul>
+
+{# display when no results return #}
+
+<!-- no result when nothing to show on list -->
+<div class="no-results">
+    <i class="bi bi-error-circle font-large-2"></i>
+    <h5>No Items Found</h5>
+</div>
+<div class="ps__rail-x" style="left: 0px; bottom: 0px">
+    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px"></div>
+</div>
+<div class="ps__rail-y" style="top: 0px; height: 733px; right: 0px">
+    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 567px"></div>
+</div>

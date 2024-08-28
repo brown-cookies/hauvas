@@ -1,0 +1,30 @@
+<div class="list-group list-group-messages">
+    <a href="{% url 'inbox:inbox' %}?type=all&page=1" class="list-group-item pt-0 {% if type == "all" %} active {% endif %}" id="inbox-menu">
+        <div class="fonticon-wrap d-inline me-3">
+            <i class="bi bi-inbox"></i>
+        </div>
+        Inbox
+        <span class="badge bg-light-primary badge-pill badge-round float-right mt-50">5</span>
+    </a>
+    <a href="{% url 'inbox:inbox' %}?type=sent&page=1" class="list-group-item pt-0 {% if type == "sent" %} active {% endif %}" id="inbox-menu">
+        <div class="fonticon-wrap d-inline me-3">
+            <i class="bi bi-archive"></i>
+        </div>
+        Sent
+        <span class="badge bg-light-primary badge-pill badge-round float-right mt-50"></span>
+    </a>
+    <a href="{% url 'inbox:inbox' %}?type=starred&page=1" class="list-group-item pt-0 {% if type == "starred" %} active {% endif %}" id="inbox-menu">
+        <div class="fonticon-wrap d-inline me-3">
+            <i class="bi bi-star"></i>
+        </div>
+        Starred
+        <span class="badge bg-light-primary badge-pill badge-round float-right mt-50"></span>
+    </a>
+    <a href="{% url 'inbox:inbox' %}?type=trash&page=1" class="list-group-item pt-0 {% if type == "trash" %} active {% endif %}" id="inbox-menu">
+        <div class="fonticon-wrap d-inline me-3">
+            <i class="bi bi-trash"></i>
+        </div>
+        Trash
+        <span class="badge bg-light-primary badge-pill badge-round float-right mt-50"></span>
+    </a>
+</div>

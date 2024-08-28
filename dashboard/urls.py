@@ -1,5 +1,5 @@
 from django.urls import path
-from .views.announcement import Announcement
+from .views.announcement import Announcement, AnnouncementDetail
 from .views.assignment import Assignment
 from .views.views import Dashboard
 from .views.home import Home, HomeUpdate
@@ -34,6 +34,11 @@ announcementurls = [
         "course/<int:course_id>/announcements/",
         Announcement.as_view(),
         name="course-announcement",
+    ),
+    path(
+        "course/<int:course_id>/announcements/<int:announcement_id>",
+        AnnouncementDetail.as_view(),
+        name="course-announcement-detail",
     ),
 ]
 
