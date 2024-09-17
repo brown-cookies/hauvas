@@ -1,4 +1,6 @@
 from announcement.models import Announcement
+from announcement.forms.create import CreateAnnouncementForm
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from common.util.views import View
@@ -68,6 +70,35 @@ class AnnouncementCreate(View, TemplateView):
 
         context = self.get_context_data(*args, **kwargs)
 
+        form = CreateAnnouncementForm(user=request.user)
+
+        context["form"] = form
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        form = CreateAnnouncementForm(data=request.POST, user=request.user)
+
+        if not form.is_valid():
+            messages.error(request, "Invalid!")
+            return render(request, self.template_name, context)
+
+        context["form"] = form
+
+        announcement = Announcement()
+        announcement.course = form.cleaned_data["course"]
+        announcement.title = form.cleaned_data["title"]
+        announcement.short_description = form.cleaned_data["short_description"]
+        announcement.content = form.cleaned_data["content"]
+
+        announcement.save()
+
+        context["form_success"] = True
+
+        messages.success(request, "Announcement Created!")
         return render(request, self.template_name, context)
 
 
