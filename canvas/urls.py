@@ -1,8 +1,9 @@
-from django.contrib import admin
-from django.urls import path, include
+from . import views
+from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
+from django.contrib import admin
+from django.urls import path, include
 
 
 # Custom 400.html BAD REQUEST handler
@@ -36,5 +37,9 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    # add static and media files
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # add debug toolbar
+    urlpatterns += debug_toolbar_urls()

@@ -6,6 +6,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 deptry==0.19.1
 Django==5.0.6
+django-debug-toolbar==4.4.6
 django-filter==24.2
 django-grappelli==4.0.1
 django-haystack==3.3.0

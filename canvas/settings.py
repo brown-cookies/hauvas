@@ -52,6 +52,8 @@ SECRET_KEY = (
 
 ALLOWED_HOSTS = [] if DEBUG else [os.getenv("APP_URL")]
 
+INTERNAL_IPS = ["127.0.0.1"]
+
 # Application definition
 INSTALLED_APPS = [
     "grappelli",
@@ -63,6 +65,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "debug_toolbar",
     "django_components",
     "django_seed",
     # "haystack",
@@ -79,6 +82,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
