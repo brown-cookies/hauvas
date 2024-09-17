@@ -1,6 +1,8 @@
+from announcement.models import Announcement
+from django.core.paginator import Paginator
 from django.shortcuts import render
-from django.views.generic import TemplateView
 from common.util.views import View
+from django.views.generic import TemplateView
 
 
 # Create your views here.
@@ -18,6 +20,12 @@ class AnnouncementList(View, TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+        page_number = request.GET.get("page", 1)
+        announcements = Announcement.objects.all().order_by("-created_at")
+        paginator = Paginator(announcements, 10)
+        page_obj = paginator.get_page(page_number)
+
+        context["page_obj"] = page_obj
 
         return render(request, self.template_name, context)
 
