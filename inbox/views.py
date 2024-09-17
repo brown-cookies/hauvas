@@ -2,7 +2,7 @@ from .models import Inbox
 from common.util.views import View
 from enum import Enum
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView
 from urllib.parse import urlencode
@@ -157,3 +157,27 @@ class InboxCompose(View, TemplateView):
 
 class InboxView(View, TemplateView):
     template_name = "inbox/detail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        inbox_id = kwargs.pop("inbox_id", None)
+
+        inbox_instance = get_object_or_404(Inbox, pk=inbox_id)
+
+        context["title"] = "Compose"
+        context["link"] = "inbox"
+        context["inbox"] = inbox_instance
+        context["sender_group"] = (
+            "professor"
+            if inbox_instance.sender.groups.filter(name="professor").exists()
+            else "student"
+        )
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        return render(request, self.template_name, context)

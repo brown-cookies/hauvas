@@ -1,63 +1,52 @@
 {% load static %}
 
 {% if inboxes %}
-  <ul class="users-list-wrapper media-list">
-    {% for inbox in inboxes %}
-      <li class="media {% if inbox.is_read %} mail-read {% endif %}">
-        <div class="user-action">
-          <div class="checkbox-con me-3">
-            <div
-              class="checkbox checkbox-shadow checkbox-sm"
-            >
-              <input
-                type="checkbox"
-                id="checkboxsmall3"
-                class="form-check-input"
-              />
-              <label for="checkboxsmall3"></label>
+    <ul class="users-list-wrapper media-list">
+        {% for inbox in inboxes %}
+        <li class="media {% if inbox.is_read %} mail-read {% endif %}">
+            <div class="user-action">
+                <div class="checkbox-con me-3">
+                    <div class="checkbox checkbox-shadow checkbox-sm">
+                        <input type="checkbox" id="checkboxsmall3" class="form-check-input" />
+                        <label for="checkboxsmall3"></label>
+                    </div>
+                </div>
+                <span class="favorite">
+                    <i class="bi bi-star-fill"></i>
+                </span>
             </div>
-          </div>
-          <span class="favorite">
-            <i class="bi bi-star-fill"></i>
-          </span>
-        </div>
-          <div class="avatar avatar-sm bg-warning">
-            <span class="avatar-content">
-            </span>
+            <div class="avatar avatar-sm bg-warning">
+                <span class="avatar-content">
+                </span>
             </div>
-        <div class="media-body">
-          <div class="user-details">
-            <div class="mail-items">
-              <span
-                class="list-group-item-text text-truncate"
-                >{{ inbox.subject }}</span
-              >
+            <div class="media-body">
+                <div class="user-details">
+                    <div class="mail-items">
+                        <span class="list-group-item-text text-truncate">
+                            <a href="{% url 'inbox:inbox-view' inbox_id=inbox.id  %}">{{ inbox.subject }}</a>
+                        </span>
+                    </div>
+                    <div class="mail-meta-item">
+                        <span class="float-right">
+                            <span class="mail-date">{{ inbox.sent_at }}</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="mail-message">
+                    <p class="list-group-item-text mb-0 truncate">
+                        {{ inbox.content|truncatechars:50 }}
+                    </p>
+                    <div class="mail-meta-item">
+                        <span class="float-right d-flex align-items-center">
+                            <i class="bi bi-paperclip me-3"></i>
+                            <span class="bullet bullet-success bullet-sm"></span>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="mail-meta-item">
-              <span class="float-right">
-                <span class="mail-date">{{ inbox.sent_at }}</span>
-              </span>
-            </div>
-          </div>
-          <div class="mail-message">
-            <p class="list-group-item-text mb-0 truncate">
-              {{ inbox.content|truncatechars:50 }}
-            </p>
-            <div class="mail-meta-item">
-              <span
-                class="float-right d-flex align-items-center"
-              >
-                <i class="bi bi-paperclip me-3"></i>
-                <span
-                  class="bullet bullet-success bullet-sm"
-                ></span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
+        </li>
+        {% endfor %}
+    </ul>
 {% else %}
-  <h1>No Results</h1>
+    <h1>No Results</h1>
 {% endif %}
