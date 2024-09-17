@@ -11,6 +11,7 @@ class Inbox(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="receiver"
     )
     is_starred = models.BooleanField(default=False)
+    is_trashed = models.BooleanField(default=False)
     subject = models.CharField(max_length=254)
     content = models.TextField()
     is_archived = models.BooleanField(default=False)

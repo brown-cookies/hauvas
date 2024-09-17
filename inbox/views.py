@@ -63,14 +63,57 @@ class InboxList(View, TemplateView):
 
         return paginated_items
 
-    def get_inbox_list_sent(self, request, page):
-        return "sent"
+    def get_inbox_list_sent(self, request, page, per_page=10):
+        user = request.user
+        inbox_list = Inbox.objects.all().filter(sent=user).order_by("-created_at")
 
-    def get_inbox_list_starred(self, request, page):
-        return "starred"
+        paginator = Paginator(inbox_list, per_page)
+        try:
+            paginated_items = paginator.page(page)
+        except PageNotAnInteger:
+            paginated_items = paginator.page(1)
+        except EmptyPage:
+            paginated_items = paginator.page(paginator.num_pages)
 
-    def get_inbox_list_trash(self, request, page):
-        return "trash"
+        return paginated_items
+
+    def get_inbox_list_starred(self, request, page, per_page=10):
+        user = request.user
+        inbox_list = (
+            Inbox.objects.all()
+            .filter(receiver=user)
+            .filter(is_starred=True)
+            .order_by("-created_at")
+        )
+
+        paginator = Paginator(inbox_list, per_page)
+        try:
+            paginated_items = paginator.page(page)
+        except PageNotAnInteger:
+            paginated_items = paginator.page(1)
+        except EmptyPage:
+            paginated_items = paginator.page(paginator.num_pages)
+
+        return paginated_items
+
+    def get_inbox_list_trash(self, request, page, per_page):
+        user = request.user
+        inbox_list = (
+            Inbox.objects.all()
+            .filter(receiver=user)
+            .filter(is_trashed=True)
+            .order_by("-created_at")
+        )
+
+        paginator = Paginator(inbox_list, per_page)
+        try:
+            paginated_items = paginator.page(page)
+        except PageNotAnInteger:
+            paginated_items = paginator.page(1)
+        except EmptyPage:
+            paginated_items = paginator.page(paginator.num_pages)
+
+        return paginated_items
 
     def get(self, request, *args, **kwargs):
 
