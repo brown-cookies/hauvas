@@ -1,6 +1,6 @@
 from announcement.models import Announcement
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from common.util.views import View
 from django.views.generic import TemplateView
 
@@ -44,6 +44,11 @@ class AnnouncementDetail(View, TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+        announcement_id = kwargs.pop("announcement_id", None)
+
+        announcement_instance = get_object_or_404(Announcement, pk=announcement_id)
+
+        context["announcement"] = announcement_instance
 
         return render(request, self.template_name, context)
 

@@ -19,9 +19,98 @@
                         <div class="card-body">
                             <h3 class="card-title">
                                 <div class="hstack gap-3 d-flex justify-content-between">
-                                    Announcement Detail
+                                    {{ course.title }} Announcements
                                 </div>
                             </h3>
+
+                            <br />
+
+                            <div class="row">
+                                <div class="col-12 mb-1">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search mb-2"></i></span>
+                                        <input type="text" class="form-control form-control-lg" placeholder="Search Announcements..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu border">
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="fa fa-plus mb-2"></i> New
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="fa fa-inbox mb-2"></i> Mark All as Read
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    All
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    Unread
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    Starred
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    Trashed
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group">
+                                <li href="#" class="position-relative list-group-item list-group-item-action p-3 d-flex flex-column" aria-current="true">
+                                    <div class="d-flex flex-row align-items-center position-relative w-100">
+                                        <div class="user-menu d-flex align-items-center">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <div class="avatar avatar-lg bg-success">
+                                                    <span class="avatar-content">
+                                                        TE
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="user-name text-start ms-3">
+                                                <h6 class="mb-0 text-gray-600">
+                                                    AUTHOR | {{ announcement.course.professor.user.profile.first_name }} {{ announcement.course.professor.user.profile.last_name }}
+                                                </h6>
+                                                <p class="mb-0 text-sm text-gray-600">
+                                                    {{ announcement.short_description }}
+                                                </p>
+                                                <p class="mb-0 text-sm text-gray-600">
+                                                    {{ announcement.posted_at }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown position-absolute end-0 me-2">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-bars"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="{% url 'announcement:announcement-update' %}">Edit</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="mt-5">
+                                        <p id="about-content"></p>
+                                        <span data-content="{{ announcement.content }}"></span>
+                                    </div>
+                                </li>
+                            </ul>
 
                             <br />
 
@@ -34,4 +123,74 @@
 </div>
 {% endblock content %}
 
-{% block extra_js %}{% endblock extra_js %}
+{% block extra_js %}
+<script src="{% static './js/QuillDeltaToHtmlConverter.bundle.js' %}"></script>
+
+
+<script>
+    $(function() {
+        const about_content = $("#about-content")
+        const span_element = $("[data-content]")
+        const content = span_element.attr("data-content")
+        const json_content = JSON.parse(content)
+
+        const delta_html_config = {
+            customCssClasses: (op) => {
+                let classes = [];
+    
+                if (op.attributes && op.attributes.bold) {
+                    classes.push('fw-semibold');
+                }
+    
+                if (op.attributes && op.attributes.italic) {
+                classes.push('fst-italic');
+                }
+    
+                if (op.attributes && op.attributes.underline) {
+                    classes.push('my-underline-class');
+                }
+    
+                if (op.attributes && op.attributes.strike) {
+                    classes.push('my-strike-class');
+                }
+    
+                if (op.attributes && op.attributes.header) {
+                classes.push(`fs-${op.attributes.header}`);
+                }
+    
+                if (op.attributes && op.attributes.size) {
+                    switch (op.attributes.size) {
+                        case 'small':
+                            classes.push('my-small-class');
+                            break;
+                        case 'large':
+                            classes.push('my-large-class');
+                            break;
+                        case 'huge':
+                            classes.push('my-huge-class');
+                            break;
+                    }
+                }
+    
+                if (op.attributes && op.attributes.list) {
+                    classes.push(`list-group-item`);
+                }
+    
+    
+    
+                return classes.join(' ');
+            }
+        }
+
+        const converter = new QuillDeltaToHtmlConverter(json_content.ops, delta_html_config);
+        let html = converter.convert()
+
+        html = html.replace(/<li>/g, '<li class="my-list-item-class">');
+
+        html = html.replace(/<ul>(.+?)<\/ul>/g, '<ul class="list-group-flush">$1</ul>');
+
+        span_element.remove()
+        about_content.html(html)
+    })
+</script>
+{% endblock extra_js %}
