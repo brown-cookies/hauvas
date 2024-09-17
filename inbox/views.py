@@ -153,3 +153,7 @@ class InboxCompose(View, TemplateView):
         context = self.get_context_data(*args, **kwargs)
 
         return render(request, self.template_name, context)
+
+
+class InboxView(View, TemplateView):
+    template_name = "inbox/detail.html"
