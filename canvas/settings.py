@@ -50,7 +50,7 @@ SECRET_KEY = (
     else "django-insecure-b(3e8wi+f29*3dvi0+p6dqan%!g)zau=w+8tl#g6xw37wwx5re"
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] if DEBUG else [os.getenv("APP_URL")]
 
 # Application definition
 INSTALLED_APPS = [
@@ -70,7 +70,6 @@ INSTALLED_APPS = [
     "dashboard",
     "canvas",
     "main",
-    "professor",
     "announcement",
     "grade",
     "inbox",
