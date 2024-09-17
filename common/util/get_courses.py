@@ -22,6 +22,9 @@ def get_student_courses(user: User):
     for enrollment in student.enrollments.all():
         course = enrollment.course
 
+        time_from = course.start_time.strftime("%I:%M %p")
+        time_to = course.end_time.strftime("%I:%M %p")
+
         course_content = {
             "enrollment_id": enrollment.id,
             "id": course.id,
@@ -30,7 +33,7 @@ def get_student_courses(user: User):
             "codename": course.codename,
             "department": course.department.abbr,
             "block": course.block.name,
-            "time": f"{course.start_time}-{course.end_time}",
+            "time": f"{time_from}-{time_to}",
             "days": course.days,
             "room": course.room,
             "semester": course.semester.__str__(),
@@ -47,6 +50,10 @@ def get_professor_courses(user: User):
     courses = []
 
     for course in professor.courses.all():
+
+        time_from = course.start_time.strftime("%I:%M %p")
+        time_to = course.end_time.strftime("%I:%M %p")
+
         course_content = {
             "id": course.id,
             "title": course.title,
@@ -54,7 +61,7 @@ def get_professor_courses(user: User):
             "codename": course.codename,
             "department": course.department.abbr,
             "block": course.block.name,
-            "time": f"{course.start_time}-{course.end_time}",
+            "time": f"{time_from}-{time_to}",
             "days": course.days,
             "room": course.room,
             "semester": course.semester.__str__(),
