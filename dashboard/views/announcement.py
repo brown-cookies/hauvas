@@ -138,8 +138,6 @@ class AnnouncementUpdate(DashboardParentView):
             messages.error(request, "Invalid!")
             return render(request, self.template_name, context)
 
-        course = context["course"]
-
         announcement_id = kwargs.pop("announcement_id", None)
         announcement_instance = get_object_or_404(AnnouncementModel, pk=announcement_id)
 

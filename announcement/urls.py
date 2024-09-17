@@ -16,5 +16,9 @@ urlpatterns = [
         name="announcement-detail",
     ),
     path("create/", views.AnnouncementCreate.as_view(), name="announcement-create"),
-    path("update/", views.AnnouncementUpdate.as_view(), name="announcement-update"),
+    path(
+        "<int:announcement_id>/update/",
+        views.AnnouncementUpdate.as_view(),
+        name="announcement-update",
+    ),
 ]
