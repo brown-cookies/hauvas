@@ -5,7 +5,6 @@ from .views.announcement import (
     AnnouncementCreate,
     AnnouncementUpdate,
 )
-from .views.assignment import Assignment
 from .views.views import Dashboard
 from .views.home import Home, HomeUpdate
 from .views.syllabus import Syllabus, SyllabusUpdate
@@ -71,14 +70,6 @@ moduleurls = [
     ),
 ]
 
-assignmenturls = [
-    path(
-        "course/<int:course_id>/assignments/",
-        Assignment.as_view(),
-        name="course-assignment",
-    ),
-]
-
 urlpatterns = [
     path("", Dashboard.as_view(), name="dashboard"),
 ]
@@ -98,6 +89,3 @@ urlpatterns += announcementurls
 
 # adding module to urlpattern
 urlpatterns += moduleurls
-
-# adding assignment to urlpattern
-urlpatterns += assignmenturls
