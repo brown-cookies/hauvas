@@ -16,6 +16,8 @@ class Inbox(models.Model):
     is_archived = models.BooleanField(default=False)
     is_read = models.BooleanField(default=False)
     sent_at = models.DateTimeField()
-    read_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"from {self.sender} to {self.receiver} - {self.subject}"
