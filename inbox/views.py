@@ -1,3 +1,4 @@
+from .forms.create import ComposeInboxForm
 from .models import Inbox
 from common.util.views import View
 from enum import Enum
@@ -138,7 +139,7 @@ class InboxList(View, TemplateView):
 
 
 class InboxCompose(View, TemplateView):
-    template_name = "inbox/list.html"
+    template_name = "inbox/create.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -151,6 +152,20 @@ class InboxCompose(View, TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+
+        form = ComposeInboxForm()
+
+        context["form"] = form
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(*args, **kwargs)
+
+        form = ComposeInboxForm(data=request.POST)
+
+        if not form.is_valid():
+            pass
 
         return render(request, self.template_name, context)
 
@@ -165,7 +180,7 @@ class InboxView(View, TemplateView):
 
         inbox_instance = get_object_or_404(Inbox, pk=inbox_id)
 
-        context["title"] = "Compose"
+        context["title"] = inbox_instance.subject
         context["link"] = "inbox"
         context["inbox"] = inbox_instance
         context["sender_group"] = (

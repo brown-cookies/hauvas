@@ -1,32 +1,55 @@
 {
-  "cSpell.words": [
-    "browsable",
-    "DATANALYSIS",
-    "grappelli",
-    "todos",
-    "viewsets"
-  ],
-  "editor.tabSize": 4,
-  "editor.quickSuggestions": {
-    "other": "off",
-    "comments": "off",
-    "strings": "off"
-  },
-  "editor.quickSuggestionsDelay": 3000,
-  "editor.suggest.showWords": true,
-  "editor.suggest.showConstants": false,
-  "editor.suggest.showFiles": false,
-  "editor.suggest.showColors": false,
-  "editor.suggest.showUnits": false,
-  "editor.suggest.showFolders": false,
-  "[django-html]": {
-    "editor.defaultFormatter": "HookyQR.beautify",
-    "editor.quickSuggestions": {
-      "comments": true,
-      "other": true,
-      "strings": true
-    },
+    "cSpell.words": [
+        "browsable",
+        "DATANALYSIS",
+        "grappelli",
+        "todos",
+        "viewsets"
+    ],
+    "editor.detectIndentation": false,
     "editor.tabSize": 4,
-    "editor.wordWrap": "on"
-  }
+    "editor.quickSuggestions": {
+        "other": "off",
+        "comments": "off",
+        "strings": "off"
+    },
+    "editor.quickSuggestionsDelay": 1000,
+    "editor.suggest.showWords": true,
+    "editor.suggest.showConstants": false,
+    "editor.suggest.showFiles": false,
+    "editor.suggest.showColors": false,
+    "editor.suggest.showUnits": false,
+    "editor.suggest.showFolders": false,
+    "[django-html]": {
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": true,
+            "strings": true
+        },
+        "djlint.enableLinting": true,
+        "djlint.profile": "django"
+    },
+    "auto-close-tag.activationOnLanguage": [
+        "django-html",
+        "xml",
+        "php",
+        "blade",
+        "ejs",
+        "jinja",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "plaintext",
+        "markdown",
+        "vue",
+        "liquid",
+        "erb",
+        "lang-cfml",
+        "cfml",
+        "HTML (EEx)",
+        "HTML (Eex)",
+        "plist"
+    ],
+    "auto-rename-tag.activationOnLanguage": ["*"]
 }

@@ -51,6 +51,17 @@
                                                 </p>
                                             </div>
                                         </div>
+                                        <div class="dropdown position-absolute end-0 me-2">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-bars"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                {% comment %} TODO: Update href URL after urls.py configured {% endcomment %}
+                                                <li><a class="dropdown-item" href="{% url 'inbox:inbox' %}">Set as Archive</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'inbox:inbox' %}">Set as Starred</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'inbox:inbox' %}">Trash</a></li>
+                                            </ul>
+                                        </div>  
                                     </div>
 
                                     <br />
