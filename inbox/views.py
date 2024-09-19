@@ -57,7 +57,13 @@ class InboxList(View, TemplateView):
 
     def get_inbox_list_all(self, request, page, per_page=10):
         user = request.user
-        inbox_list = Inbox.objects.all().filter(receiver=user).order_by("-created_at")
+        inbox_list = (
+            Inbox.objects.all()
+            .filter(receiver=user)
+            .filter(is_starred=False)
+            .filter(is_trashed=False)
+            .order_by("-created_at")
+        )
 
         paginator = Paginator(inbox_list, per_page)
         try:
@@ -244,5 +250,48 @@ class InboxView(View, TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+        starred_success = bool(request.GET.get("starred_success", None))
+        archived_success = bool(request.GET.get("archived_success", None))
+
+        if starred_success:
+            context["starred_success"] = True
+        if archived_success:
+            context["starred_success"] = True
 
         return render(request, self.template_name, context)
+
+
+class InboxMarkAsStarred(View, TemplateView):
+    def get(self, request, *args, **kwargs):
+        inbox_id = kwargs.pop("inbox_id", None)
+
+        inbox_instance = get_object_or_404(Inbox, pk=inbox_id)
+        inbox_instance.is_starred = not inbox_instance.is_starred
+
+        inbox_instance.save()
+
+        url = reverse("inbox:inbox-view", kwargs={"inbox_id": inbox_id})
+
+        query_params = {"starred_success": 1}
+
+        return redirect(f"{url}?{urlencode(query_params)}")
+
+
+class InboxMarkAsArchived(View, TemplateView):
+    def get(self, request, *args, **kwargs):
+        inbox_id = kwargs.pop("inbox_id", None)
+
+        inbox_instance = get_object_or_404(Inbox, pk=inbox_id)
+        inbox_instance.is_archived = not inbox_instance.is_archived
+
+        inbox_instance.save()
+
+        url = reverse("inbox:inbox-view", kwargs={"inbox_id": inbox_id})
+
+        query_params = {"archived_success": 1}
+
+        return redirect(f"{url}?{urlencode(query_params)}")
+
+
+class InboxTrashed(View, TemplateView):
+    pass

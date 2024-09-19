@@ -24,6 +24,23 @@
                             </h3>
 
                             <br />
+
+                            {% if starred_success %}
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <span class="fs-6"><i class="bi bi-check-circle"></i> Inbox starred!<span>
+                                    <a href="{% url 'inbox:inbox' %}">Go back?</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+
+                            {% if archived_success %}
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <span class="fs-6"><i class="bi bi-check-circle"></i> Inbox Archived!<span>
+                                    <a href="{% url 'inbox:inbox' %}">Go back?</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+
                             <ul class="list-group">
                                 <li href="#" class="position-relative list-group-item list-group-item-action p-3 d-flex flex-column" aria-current="true">
                                     <div class="d-flex flex-row align-items-center position-relative w-100">
@@ -56,10 +73,25 @@
                                                 <i class="fa fa-bars"></i>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                {% comment %} TODO: Update href URL after urls.py configured {% endcomment %}
-                                                <li><a class="dropdown-item" href="{% url 'inbox:inbox' %}">Set as Archive</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'inbox:inbox' %}">Set as Starred</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'inbox:inbox' %}">Trash</a></li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{% url 'inbox:inbox-toggle-archived' inbox_id=inbox.id %}">
+                                                        {% if inbox.is_archived %}
+                                                            Remove Archive
+                                                        {% else %}
+                                                            Set as Archive
+                                                        {% endif %}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{% url 'inbox:inbox-toggle-starred' inbox_id=inbox.id %}">
+                                                        {% if inbox.is_starred %}
+                                                            Remove Starred
+                                                        {% else %}
+                                                            Set as Starred
+                                                        {% endif %}
+                                                    </a>
+                                                </li>
+                                                <li><a class="dropdown-item" href="{% url 'inbox:inbox-trashed' inbox_id=inbox.id %}">Trash</a></li>
                                             </ul>
                                         </div>  
                                     </div>
