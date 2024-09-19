@@ -130,11 +130,6 @@ class Enrollment(models.Model):
         on_delete=models.CASCADE,
         related_name="enrollments",
     )
-    semester = models.ForeignKey(
-        "main.Semester",
-        on_delete=models.CASCADE,
-        related_name="enrollments",
-    )
     enrollment_date = models.DateTimeField()
     completion_date = models.DateTimeField()
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
