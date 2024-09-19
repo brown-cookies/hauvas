@@ -60,7 +60,6 @@ class InboxList(View, TemplateView):
         inbox_list = (
             Inbox.objects.all()
             .filter(receiver=user)
-            .filter(is_starred=False)
             .filter(is_trashed=False)
             .order_by("-created_at")
         )
@@ -77,7 +76,12 @@ class InboxList(View, TemplateView):
 
     def get_inbox_list_sent(self, request, page, per_page=10):
         user = request.user
-        inbox_list = Inbox.objects.all().filter(sender=user).order_by("-created_at")
+        inbox_list = (
+            Inbox.objects.all()
+            .filter(sender=user)
+            .filter(is_trashed=False)
+            .order_by("-created_at")
+        )
 
         paginator = Paginator(inbox_list, per_page)
         try:
@@ -95,6 +99,7 @@ class InboxList(View, TemplateView):
             Inbox.objects.all()
             .filter(receiver=user)
             .filter(is_starred=True)
+            .filter(is_trashed=False)
             .order_by("-created_at")
         )
 
@@ -114,6 +119,7 @@ class InboxList(View, TemplateView):
             Inbox.objects.all()
             .filter(receiver=user)
             .filter(is_archived=True)
+            .filter(is_trashed=False)
             .order_by("-created_at")
         )
 
