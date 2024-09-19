@@ -91,7 +91,7 @@
           <ul class="submenu">
             {% for course in courses %}
             <li class="submenu-item">
-              <a href="{% url 'dashboard:course-home' course_id=course.id %}" class="submenu-link">{{ course.title }}</a>
+              <a href="{% url 'dashboard:course-home' course_id=course.id %}" class="submenu-link">{{ course.title|truncatechars:15 }}</a>
             </li>
           {% endfor %} 
           </ul>

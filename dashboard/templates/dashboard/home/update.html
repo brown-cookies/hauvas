@@ -13,7 +13,7 @@
                 <div class="col-xs-1-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Updating {{ course.title }} | {{ course.codename }} 'About the Course'</h3>
+                            <h3 class="card-title">Updating {{ course.title|truncatechars:30 }} | {{ course.codename }} 'About the Course'</h3>
                             <p class="card-text">Accepts HTML and Markdown</p>
                             <br />
 

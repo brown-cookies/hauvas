@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <h3 class="card-title">
                                 <div class="hstack gap-3 d-flex justify-content-between">
-                                    {{ course.title }}  Modules
+                                    {{ course.title|truncatechars:30 }}  Modules
                                     {% if perms.dashboard.add_moduleitem %}
                                         <a href="#" class="btn btn-success">
                                             <i class="fa fa-plus"></i> Add new module/s

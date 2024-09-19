@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <h3 class="card-title">
                                 <div class="hstack gap-3 d-flex justify-content-between">
-                                    {{ course.title }} | {{ course.codename }} People
+                                    {{ course.title|truncatechars:30 }} | {{ course.codename }} People
                                 </div>
                             </h3>
                             <p class="card-text">{{ course.semester.term }} Semester {{ course.semester.start_year }}-{{ course.semester.end_year }}</p>

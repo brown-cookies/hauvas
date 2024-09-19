@@ -51,5 +51,6 @@
         "HTML (Eex)",
         "plist"
     ],
-    "auto-rename-tag.activationOnLanguage": ["*"]
+    "auto-rename-tag.activationOnLanguage": ["*"],
+    "indentRainbow.ignoreErrorLanguages": ["html", "markdown", "haskell"]
 }
