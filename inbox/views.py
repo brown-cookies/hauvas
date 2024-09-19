@@ -2,10 +2,12 @@ from .forms.create import ComposeInboxForm
 from .models import Inbox
 from common.util.views import View
 from enum import Enum
+from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView
+from main.models import Profile
 from urllib.parse import urlencode
 
 
@@ -188,7 +190,28 @@ class InboxCompose(View, TemplateView):
         form = ComposeInboxForm(data=request.POST)
 
         if not form.is_valid():
-            pass
+            messages.error(request, "Error sending an inbox!")
+
+        cleaned_receiver_email = form.cleaned_data.get("receiver")
+        cleaned_subject = form.cleaned_data.get("subject")
+        cleaned_content = form.cleaned_data.get("content")
+
+        try:
+            receiver_profile = Profile.objects.get(email=cleaned_receiver_email)
+        except Profile.DoesNotExist:
+            messages.error(request, "No existing user in the provided email address!")
+
+        inbox_instance = Inbox()
+        inbox_instance.receiver = receiver_profile.user
+        inbox_instance.sender = request.user
+        inbox_instance.subject = cleaned_subject
+        inbox_instance.content = cleaned_content
+
+        inbox_instance.save()
+        messages.success(request, "Inbox sent successfully!")
+
+        context["form"] = form
+        context["form_success"] = True
 
         return render(request, self.template_name, context)
 

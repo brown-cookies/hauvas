@@ -23,7 +23,7 @@
                 </div>
                 <div class="mail-message">
                     <p class="list-group-item-text mb-0 truncate">
-                        {{ inbox.content|truncatechars:50 }}
+                        {% if type == 'sent' %}To {% else %}From {% endif %} {{ inbox.receiver.profile.email }}
                     </p>
                     <div class="mail-meta-item">
                         <span class="float-right d-flex align-items-center">

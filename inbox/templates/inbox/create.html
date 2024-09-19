@@ -27,9 +27,17 @@
 
                             {% if form_success %}
                                 <div class="alert alert-success alert-dismissible show fade">
-                                    <span class="fs-6"><i class="bi bi-check-circle"></i> Success creating announcement!<span>
+                                    <span class="fs-6"><i class="bi bi-check-circle"></i> Success creating an inbox!<span>
                                     <a href="{% url 'inbox:inbox' %}">Go back?</a>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger alert-dismissible show fade">
+                                    {% for error in form.non_field_errors %}
+                                        <span class="fs-6"><i class="bi bi-check-circle"></i> {{ error }}<span>
+                                    {% endfor %}
                                 </div>
                             {% endif %}
 
