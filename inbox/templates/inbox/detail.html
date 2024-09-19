@@ -41,6 +41,14 @@
                                 </div>
                             {% endif %}
 
+                            {% if trashed_success %}
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <span class="fs-6"><i class="bi bi-check-circle"></i> Inbox move to trash!<span>
+                                    <a href="{% url 'inbox:inbox' %}">Go back?</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+
                             <ul class="list-group">
                                 <li href="#" class="position-relative list-group-item list-group-item-action p-3 d-flex flex-column" aria-current="true">
                                     <div class="d-flex flex-row align-items-center position-relative w-100">
@@ -91,7 +99,15 @@
                                                         {% endif %}
                                                     </a>
                                                 </li>
-                                                <li><a class="dropdown-item" href="{% url 'inbox:inbox-trashed' inbox_id=inbox.id %}">Trash</a></li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{% url 'inbox:inbox-trashed' inbox_id=inbox.id %}">
+                                                        {% if inbox.is_trashed %}
+                                                            Remove from Trash
+                                                        {% else %}
+                                                            Move to Trash
+                                                        {% endif %}
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>  
                                     </div>

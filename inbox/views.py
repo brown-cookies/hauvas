@@ -60,6 +60,7 @@ class InboxList(View, TemplateView):
         inbox_list = (
             Inbox.objects.all()
             .filter(receiver=user)
+            .filter(is_archived=False)
             .filter(is_trashed=False)
             .order_by("-created_at")
         )
@@ -258,11 +259,14 @@ class InboxView(View, TemplateView):
         context = self.get_context_data(*args, **kwargs)
         starred_success = bool(request.GET.get("starred_success", None))
         archived_success = bool(request.GET.get("archived_success", None))
+        trashed_success = bool(request.GET.get("trashed_success", None))
 
         if starred_success:
             context["starred_success"] = True
         if archived_success:
             context["starred_success"] = True
+        if trashed_success:
+            context["trashed_success"] = True
 
         return render(request, self.template_name, context)
 
@@ -300,4 +304,16 @@ class InboxMarkAsArchived(View, TemplateView):
 
 
 class InboxTrashed(View, TemplateView):
-    pass
+    def get(self, request, *args, **kwargs):
+        inbox_id = kwargs.pop("inbox_id", None)
+
+        inbox_instance = get_object_or_404(Inbox, pk=inbox_id)
+        inbox_instance.is_trashed = not inbox_instance.is_trashed
+
+        inbox_instance.save()
+
+        url = reverse("inbox:inbox-view", kwargs={"inbox_id": inbox_id})
+
+        query_params = {"trashed_success": 1}
+
+        return redirect(f"{url}?{urlencode(query_params)}")
