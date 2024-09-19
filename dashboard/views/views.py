@@ -1,8 +1,8 @@
+from common.util.views import View
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.contrib.auth.mixins import PermissionRequiredMixin
-
-from common.util.views import View
+from todo.models import Todo
 
 
 class Dashboard(PermissionRequiredMixin, View, TemplateView):
@@ -21,5 +21,9 @@ class Dashboard(PermissionRequiredMixin, View, TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+
+        todos = Todo.objects.filter(user=request.user).order_by("-created_at")
+
+        context["todos"] = todos
 
         return render(request, self.template_name, context)

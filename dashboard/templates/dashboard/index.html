@@ -70,6 +70,11 @@
               <h4 class="card-title">Todo</h4>
             </div>
             <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for todo in todos %}
+                        {% if not todo.is_completed %}<li class="list-group-item">{{ todo.title }}</li>{% endif %}
+                    {% endfor %}
+                  </ul>
             </div>
           </div>
         </div>

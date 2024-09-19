@@ -47,78 +47,35 @@
   
               <h6 class="mb-3">Todo List</h6>
   
-              <form class="d-flex justify-content-center align-items-center mb-4">
+              <form class="d-flex justify-content-center align-items-center mb-4" method="post" action="{% url 'todo:todo' %}">
+                {% csrf_token %}
+
                 <div class="w-100 mb-1">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Add Todo"
-                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button"
+                        {{ form.title }}
+                        <button class="btn btn-primary" type="submit"
                             id="button-addon2">Add</button>
                     </div>
                 </div>
               </form>
   
               <ul class="list-group mb-0">
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                  <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
-                    Cras justo odio
-                  </div>
-                  <a href="#!" data-mdb-tooltip-init title="Remove item">
-                    <i class="fas fa-times text-primary"></i>
-                  </a>
-                </li>
-                <li
-                  class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                  <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked />
-                    <s>Dapibus ac facilisis in</s>
-                  </div>
-                  <a href="#!" data-mdb-tooltip-init title="Remove item">
-                    <i class="fas fa-times text-primary"></i>
-                  </a>
-                </li>
-                <li
-                  class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                  <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
-                    Morbi leo risus
-                  </div>
-                  <a href="#!" data-mdb-tooltip-init title="Remove item">
-                    <i class="fas fa-times text-primary"></i>
-                  </a>
-                </li>
-                <li
-                  class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                  <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
-                    Porta ac consectetur ac
-                  </div>
-                  <a href="#!" data-mdb-tooltip-init title="Remove item">
-                    <i class="fas fa-times text-primary"></i>
-                  </a>
-                </li>
-                <li
-                  class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-0">
-                  <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked />
-                    Vestibulum at eros
-                  </div>
-                  <a href="#!" data-mdb-tooltip-init title="Remove item">
-                    <i class="fas fa-times text-primary"></i>
-                  </a>
-                </li>
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                  <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
-                    Morbi leo risus
-                  </div>
-                  <a href="#!" data-mdb-tooltip-init title="Remove item">
-                    <i class="fas fa-times text-primary"></i>
-                  </a>
-                </li>
+                {% for todo in todos %}
+                    <li
+                        class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                        <div class="d-flex align-items-center">
+                            <input class="todo-toggle-checkbox form-check-input me-2" type="checkbox" data-id="{{ todo.id }}" aria-label="..." {% if todo.is_completed %} checked {% endif %} />
+                            {% if not todo.is_complete %}
+                                {{ todo.title }}
+                            {% else %}
+                                <s>{{ todo.title }}</s>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'todo:todo-delete' todo_id=todo.id %}" title="Delete Todo">
+                            <i class="fas fa-times text-primary"></i>
+                        </a>
+                    </li>
+                {% endfor %}
               </ul>
   
             </div>
@@ -131,4 +88,32 @@
 {% endblock content %}
 
 {% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $('.todo-toggle-checkbox').on('change', function() {
+            var isChecked = $(this).is(':checked');
+            var todoItem = $(this).closest('li'); 
+            var todoId = $(this).data('id');
+
+            console.log('Todo Item:', todoItem);
+            console.log('Todo ID:', todoId, 'Checked:', isChecked);
+
+            $.ajax({
+                url: `/todo/${todoId}/toggle/`,
+                method: 'POST',
+                data: {
+                    'todo_id': todoId,
+                    'is_completed': isChecked,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function() {
+                    alert('Error updating todo status.');
+                }
+            });
+        });
+    });
+</script>
 {% endblock extra_js %}
