@@ -3,18 +3,7 @@
 {% if inboxes %}
     <ul class="users-list-wrapper media-list">
         {% for inbox in inboxes %}
-        <li class="media {% if inbox.is_read %} mail-read {% endif %}">
-            <div class="user-action">
-                <div class="checkbox-con me-3">
-                    <div class="checkbox checkbox-shadow checkbox-sm">
-                        <input type="checkbox" id="checkboxsmall3" class="form-check-input" />
-                        <label for="checkboxsmall3"></label>
-                    </div>
-                </div>
-                <span class="favorite">
-                    <i class="bi bi-star-fill"></i>
-                </span>
-            </div>
+        <li class="media {% if not inbox.is_read %} mail-read {% endif %}">
             <div class="avatar avatar-sm bg-warning">
                 <span class="avatar-content">
                 </span>
@@ -23,12 +12,12 @@
                 <div class="user-details">
                     <div class="mail-items">
                         <span class="list-group-item-text text-truncate">
-                            <a href="{% url 'inbox:inbox-view' inbox_id=inbox.id  %}">{{ inbox.subject }}</a>
+                            <a href="{% url 'inbox:inbox-view' inbox_id=inbox.id %}">{{ inbox.subject }}</a>
                         </span>
                     </div>
                     <div class="mail-meta-item">
                         <span class="float-right">
-                            <span class="mail-date">{{ inbox.sent_at }}</span>
+                            <span class="mail-date">{{ inbox.created_at }}</span>
                         </span>
                     </div>
                 </div>

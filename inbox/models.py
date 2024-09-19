@@ -16,7 +16,6 @@ class Inbox(models.Model):
     content = models.TextField()
     is_archived = models.BooleanField(default=False)
     is_read = models.BooleanField(default=False)
-    sent_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

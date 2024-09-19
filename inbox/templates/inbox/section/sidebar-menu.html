@@ -20,6 +20,13 @@
         Starred
         <span class="badge bg-light-primary badge-pill badge-round float-right mt-50"></span>
     </a>
+    <a href="{% url 'inbox:inbox' %}?type=archived&page=1" class="list-group-item pt-0 {% if type == "archived  " %} active {% endif %}" id="inbox-menu">
+        <div class="fonticon-wrap d-inline me-3">
+            <i class="bi bi-inbox-fill"></i>
+        </div>
+        Archived
+        <span class="badge bg-light-primary badge-pill badge-round float-right mt-50"></span>
+    </a>
     <a href="{% url 'inbox:inbox' %}?type=trash&page=1" class="list-group-item pt-0 {% if type == "trash" %} active {% endif %}" id="inbox-menu">
         <div class="fonticon-wrap d-inline me-3">
             <i class="bi bi-trash"></i>

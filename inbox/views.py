@@ -13,6 +13,7 @@ class InboxType(Enum):
     ALL = "all"
     SENT = "sent"
     STARRED = "starred"
+    ARCHIVED = "archived"
     TRASH = "trash"
 
 
@@ -43,6 +44,8 @@ class InboxList(View, TemplateView):
             inbox_list = self.get_inbox_list_sent(request, page)
         elif query_params["type"] == InboxType.STARRED.value:
             inbox_list = self.get_inbox_list_starred(request, page)
+        elif query_params["type"] == InboxType.ARCHIVED.value:
+            inbox_list = self.get_inbox_list_archived(request, page)
         elif query_params["type"] == InboxType.TRASH.value:
             inbox_list = self.get_inbox_list_trash(request, page)
         else:
@@ -66,7 +69,7 @@ class InboxList(View, TemplateView):
 
     def get_inbox_list_sent(self, request, page, per_page=10):
         user = request.user
-        inbox_list = Inbox.objects.all().filter(sent=user).order_by("-created_at")
+        inbox_list = Inbox.objects.all().filter(sender=user).order_by("-created_at")
 
         paginator = Paginator(inbox_list, per_page)
         try:
@@ -97,7 +100,26 @@ class InboxList(View, TemplateView):
 
         return paginated_items
 
-    def get_inbox_list_trash(self, request, page, per_page):
+    def get_inbox_list_archived(self, request, page, per_page=10):
+        user = request.user
+        inbox_list = (
+            Inbox.objects.all()
+            .filter(receiver=user)
+            .filter(is_archived=True)
+            .order_by("-created_at")
+        )
+
+        paginator = Paginator(inbox_list, per_page)
+        try:
+            paginated_items = paginator.page(page)
+        except PageNotAnInteger:
+            paginated_items = paginator.page(1)
+        except EmptyPage:
+            paginated_items = paginator.page(paginator.num_pages)
+
+        return paginated_items
+
+    def get_inbox_list_trash(self, request, page, per_page=10):
         user = request.user
         inbox_list = (
             Inbox.objects.all()
@@ -133,6 +155,7 @@ class InboxList(View, TemplateView):
 
         inboxes = self.get_inbox_list(request, query_params)
 
+        context["type"] = inbox_type
         context["inboxes"] = inboxes
 
         return render(request, self.template_name, context)
@@ -179,6 +202,10 @@ class InboxView(View, TemplateView):
         inbox_id = kwargs.pop("inbox_id", None)
 
         inbox_instance = get_object_or_404(Inbox, pk=inbox_id)
+
+        inbox_instance.is_read = True
+
+        inbox_instance.save()
 
         context["title"] = inbox_instance.subject
         context["link"] = "inbox"
