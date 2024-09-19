@@ -2,36 +2,133 @@
 
 {% load static %} 
 
-{% block title %} {{ title }} {% endblock %} 
+{% block title %} {{ title }} {% endblock title %} 
 
 {% block extra_css %}
-
+    <style>
+        .gradient-custom-2 {
+            /* fallback for old browsers */
+            background: #7e40f6;
+        
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(
+            to right,
+            rgba(126, 64, 246, 1),
+            rgba(80, 139, 252, 1)
+            );
+        
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(
+            to right,
+            rgba(126, 64, 246, 1),
+            rgba(80, 139, 252, 1)
+            );
+        }
+        
+        .mask-custom {
+            background: rgba(24, 24, 16, 0.2);
+            border-radius: 2em;
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            background-clip: padding-box;
+            box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+        }
+    </style>
 {% endblock extra_css %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-        {% comment %} Content Here {% endcomment %}
-            <div class="row">
-                <div class="col-xs-1-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">
-                                <div class="hstack gap-3 d-flex justify-content-between">
-                                    To-do's
-                                </div>
-                            </h3>
-
-                            <br />
-
-                        </div>
+<section>
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+  
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+  
+              <h6 class="mb-3">Todo List</h6>
+  
+              <form class="d-flex justify-content-center align-items-center mb-4">
+                <div class="w-100 mb-1">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Add Todo"
+                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button"
+                            id="button-addon2">Add</button>
                     </div>
                 </div>
+              </form>
+  
+              <ul class="list-group mb-0">
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                  <div class="d-flex align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
+                    Cras justo odio
+                  </div>
+                  <a href="#!" data-mdb-tooltip-init title="Remove item">
+                    <i class="fas fa-times text-primary"></i>
+                  </a>
+                </li>
+                <li
+                  class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                  <div class="d-flex align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked />
+                    <s>Dapibus ac facilisis in</s>
+                  </div>
+                  <a href="#!" data-mdb-tooltip-init title="Remove item">
+                    <i class="fas fa-times text-primary"></i>
+                  </a>
+                </li>
+                <li
+                  class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                  <div class="d-flex align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
+                    Morbi leo risus
+                  </div>
+                  <a href="#!" data-mdb-tooltip-init title="Remove item">
+                    <i class="fas fa-times text-primary"></i>
+                  </a>
+                </li>
+                <li
+                  class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                  <div class="d-flex align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
+                    Porta ac consectetur ac
+                  </div>
+                  <a href="#!" data-mdb-tooltip-init title="Remove item">
+                    <i class="fas fa-times text-primary"></i>
+                  </a>
+                </li>
+                <li
+                  class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-0">
+                  <div class="d-flex align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked />
+                    Vestibulum at eros
+                  </div>
+                  <a href="#!" data-mdb-tooltip-init title="Remove item">
+                    <i class="fas fa-times text-primary"></i>
+                  </a>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                  <div class="d-flex align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
+                    Morbi leo risus
+                  </div>
+                  <a href="#!" data-mdb-tooltip-init title="Remove item">
+                    <i class="fas fa-times text-primary"></i>
+                  </a>
+                </li>
+              </ul>
+  
             </div>
+          </div>
+  
         </div>
+      </div>
     </div>
-</div>
+  </section>
 {% endblock content %}
 
-{% block extra_js %}{% endblock extra_js %}
+{% block extra_js %}
+{% endblock extra_js %}

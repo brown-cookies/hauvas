@@ -25,6 +25,7 @@
 
                             <br />
 
+                            <div id="calendar"></div>
                         </div>
                     </div>
                 </div>
@@ -34,4 +35,17 @@
 </div>
 {% endblock content %}
 
-{% block extra_js %}{% endblock extra_js %}
+{% block extra_js %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      let calendarEl = document.getElementById('calendar');
+      let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
+      });
+      calendar.render();
+    });
+
+  </script>
+{% endblock extra_js %}

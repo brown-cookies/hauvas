@@ -20,3 +20,15 @@ class TodoList(View, TemplateView):
         context = self.get_context_data(*args, **kwargs)
 
         return render(request, self.template_name, context)
+
+
+class TodoCreate(View, TemplateView):
+    template_name = "todo/create.html"
+
+
+class TodoDetail(View, TemplateView):
+    template_name = "todo/detail.html"
+
+
+class TodoUpdate(View, TemplateView):
+    template_name = "todo/update.html"
