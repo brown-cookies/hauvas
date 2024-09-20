@@ -25,6 +25,52 @@
 
                             <br />
 
+                            {% if form_success %}
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <span class="fs-6"><i class="bi bi-check-circle"></i> Event Created!<span>
+                                    <a href="{% url 'event:event-list' %}">Go back?</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+
+                            <form method="post" action="{% url 'event:event-create' %}">
+                                {% csrf_token %}
+
+                                <div class="form-group col-12">
+                                    <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                                    {{ form.title }}
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                                    {{ form.description }}
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="{{ form.start_date.id_for_label }}" class="form-label">Start Date</label>
+                                        {{ form.start_date }}
+                                    </div>
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="{{ form.end_date.id_for_label }}" class="form-label">End Date</label>
+                                        {{ form.end_date }}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="{{ form.start_time.id_for_label }}" class="form-label">Start Time</label>
+                                        {{ form.start_time }}
+                                    </div>
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="{{ form.end_time.id_for_label }}" class="form-label">End End</label>
+                                        {{ form.end_time }}
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary" type="submit">Create Event</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>

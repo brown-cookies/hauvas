@@ -2,50 +2,110 @@
 
 {% load static %} 
 
-{% block title %} {{ title }} {% endblock %} 
+{% block title %} {{ title }} {% endblock title %} 
 
 {% block extra_css %}
 
 {% endblock extra_css %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-        {% comment %} Content Here {% endcomment %}
-            <div class="row">
-                <div class="col-xs-1-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">
-                                <div class="hstack gap-3 d-flex justify-content-between">
-                                    Events
-                                </div>
-                            </h3>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+            {% comment %} Content Here {% endcomment %}
+                <div class="row">
+                    <div class="col-xs-1-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <div class="hstack gap-3 d-flex justify-content-between">
+                                        Events
+                                    </div>
+                                </h3>
 
-                            <br />
+                                <br />
 
-                            <div id="calendar"></div>
+                                <ul class="d-none">
+                                    {% for event in events %}
+                                        <li class="event-list"
+                                            data-id="{{ event.id }}" 
+                                            data-title="{{ event.title }}" 
+                                            data-description="{{ event.description }}"
+                                            data-start="{{ event.start }}"
+                                            data-end="{{ event.end }}">
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+
+                                <div id="calendar"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock content %}
 
 {% block extra_js %}
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-<script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-    document.addEventListener('DOMContentLoaded', function() {
-      let calendarEl = document.getElementById('calendar');
-      let calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
-      });
-      calendar.render();
-    });
+            let calendarEvents = [
+            ];
 
-  </script>
+            let eventListItems = document.querySelectorAll('.event-list');
+
+            eventListItems.forEach(function(item) {
+                
+                let event = {
+                    title: item.getAttribute('data-title'),
+                    description: item.getAttribute('data-description'),
+                    start: item.getAttribute('data-start'),
+                    end: item.getAttribute('data-end'),
+                    url: `/event/${item.getAttribute('data-id')}/`
+                };
+
+                calendarEvents.push(event);
+            });
+
+
+            let calendarEl = document.getElementById('calendar');
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'title',
+                center: 'tasks dayGridMonth,timeGridWeek,timeGridDay',
+                right: 'today prev,next addEventButton'
+            },
+            dateClick: function(info) {
+                let clickedDate = info.dateStr;
+                window.location.href = `/event/${clickedDate}/`;
+            },
+            views: {
+                tasks: {
+                    type: 'listWeek',
+                    duration: { days: 7 }
+                }
+            },
+            customButtons: {
+                tasks: {
+                    text: 'Weekly Tasks',
+                        click: function() {
+                        calendar.changeView('tasks');
+                    }
+                },
+                addEventButton: {
+                    text: 'Add Event',
+                    click: function() {
+                        window.location.href = "{% url 'event:event-create' %}"; 
+                    },
+                },
+            },
+            events: calendarEvents
+            });
+            calendar.render();
+        });
+    </script>
 {% endblock extra_js %}
