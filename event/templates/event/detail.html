@@ -19,12 +19,17 @@
                         <div class="card-body">
                             <h3 class="card-title">
                                 <div class="hstack gap-3 d-flex justify-content-between">
-                                    Event Detail
+                                    {{ event.title }}
                                 </div>
                             </h3>
 
                             <br />
+                            <p>
+                                {{ event.start_date }} {{ event.start_time }} to {{ event.end_date }} {{ event.end_time }}
+                            </p>
+                            <p>{{ event.description }}</p>
 
+                            <a href="{% url 'event:event-list' %}" class="btn btn-primary">Back</a>
                         </div>
                     </div>
                 </div>

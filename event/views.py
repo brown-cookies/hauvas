@@ -3,7 +3,7 @@ from .models import Event
 from common.util.views import View
 from datetime import datetime
 from django.contrib import messages
-from django.shortcuts import get_list_or_404, render
+from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.views.generic import TemplateView
 
 
@@ -74,6 +74,12 @@ class EventDetail(View, TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+
+        event_id = kwargs.pop("event_id", None)
+
+        event = get_object_or_404(Event, pk=event_id)
+
+        context["event"] = event
 
         return render(request, self.template_name, context)
 
