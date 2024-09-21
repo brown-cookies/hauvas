@@ -3,7 +3,7 @@ from .models import Event
 from common.util.views import View
 from datetime import datetime
 from django.contrib import messages
-from django.shortcuts import get_list_or_404, get_object_or_404, render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
 
 
@@ -25,7 +25,7 @@ class EventList(View, TemplateView):
 
         events = []
 
-        event_list = get_list_or_404(Event, user=request.user)
+        event_list = Event.objects.filter(user=request.user)
 
         for event in event_list:
             e = {}
