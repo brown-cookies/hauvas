@@ -28,7 +28,7 @@ urlpatterns += [
         name="grade-activity",
     ),
     path(
-        "<int:course_id>/activity/<int:exam_id>/",
+        "<int:course_id>/exam/<int:exam_id>/",
         views.GradeExam.as_view(),
         name="grade-exam",
     ),

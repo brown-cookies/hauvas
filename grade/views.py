@@ -143,9 +143,50 @@ class GradeActivity(View, TemplateView):
 
         return context
 
+    def get(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        return render(request, self.template_name, context)
+
 
 class GradeExam(View, TemplateView):
     template_name = "grade/professor/exam.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        course_id = kwargs.pop("course_id", None)
+        exam_id = kwargs.pop("exam_id", None)
+
+        course = get_object_or_404(Course, pk=course_id)
+        exam = get_object_or_404(Activity, pk=exam_id)
+
+        context["title"] = f"{course.codename} {exam.name}"
+        context["link"] = "grade"
+
+        context["course"] = course
+        context["exam"] = exam
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        return render(request, self.template_name, context)
 
 
 class GradeAddActivity(View, TemplateView):

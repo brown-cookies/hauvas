@@ -68,7 +68,7 @@
                                             {% for exam in exams %}
                                                 <tr>
                                                     <td>
-                                                        <a href="" class="link-opacity-100">{{ exam.id }}</a>
+                                                        <a href="{% url "grade:grade-exam" course_id=course.id exam_id=exam.id %}" class="link-opacity-100">{{ exam.id }}</a>
                                                     </td>
                                                     <th scope="row">{{ exam.name }}</th>
                                                     <td>{{ exam.score }}</td>
