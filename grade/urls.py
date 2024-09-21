@@ -14,3 +14,12 @@ urlpatterns = [
     path("create/", views.GradeCreate.as_view(), name="grade-create"),
     path("update/", views.GradeUpdate.as_view(), name="grade-update"),
 ]
+
+# professor url
+urlpatterns += [
+    path(
+        "<int:course_id>/",
+        views.GradeProfessorCourse.as_view(),
+        name="grade-professor-course",
+    )
+]

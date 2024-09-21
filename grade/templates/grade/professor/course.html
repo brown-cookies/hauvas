@@ -1,0 +1,75 @@
+{% extends "base/base.html" %} 
+
+{% load static %} 
+
+{% block title %} {{ title }} {% endblock title %} 
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ course.codename }} Grades
+                                </div>
+                            </h3>
+
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ course.codename }} Enrolled Students
+                                </div>
+                            </h3>
+
+                            <br />
+
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">Enrollment ID</th>
+                                        <th scope="col">Fullname</th>
+                                        <th scope="col">Block Section</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for enrollment in enrollments %}
+                                        <tr>
+                                            <td>
+                                                <a href="" class="link-opacity-100">{{ enrollment.student.id }}</a>
+                                            </td>
+                                            <th scope="row">{{ enrollment.id }}</th>
+                                            <td>{{ enrollment.student.user.profile.first_name }} {{ enrollment.student.user.profile.last_name }}</td>
+                                            <td>{{ enrollment.student.block }}</td>
+                                            <td>{{ enrollment.status }}</td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}{% endblock extra_js %}
