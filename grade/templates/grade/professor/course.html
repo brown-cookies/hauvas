@@ -19,11 +19,65 @@
                         <div class="card-body">
                             <h3 class="card-title">
                                 <div class="hstack gap-3 d-flex justify-content-between">
-                                    {{ course.codename }} Grades
+                                    {{ course.codename }} Grade
+                                    
+                                    <div>
+                                        <a href="{% url 'grade:grade-add-activity' course_id=course.id %}" class="btn btn-primary">Add Activity</a>
+                                        <a href="{% url 'grade:grade-add-exam' course_id=course.id %}" class="btn btn-primary">Add Exam</a>
+                                    </div>
                                 </div>
                             </h3>
 
                             <br />
+
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <h5>Activities</h5>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Activity ID</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Score</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for activity in activities %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{% url "grade:grade-activity" course_id=course.id activity_id=activity.id %}" class="link-opacity-100">{{ activity.id }}</a>
+                                                    </td>
+                                                    <th scope="row">{{ activity.name }}</th>
+                                                    <td>{{ activity.score }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <h5>Exams</h5>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Activity ID</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Score</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for exam in exams %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="" class="link-opacity-100">{{ exam.id }}</a>
+                                                    </td>
+                                                    <th scope="row">{{ exam.name }}</th>
+                                                    <td>{{ exam.score }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

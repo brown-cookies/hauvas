@@ -1,5 +1,5 @@
-from django.urls import path
 from . import views
+from django.urls import path
 
 app_name = "grade"
 
@@ -21,5 +21,28 @@ urlpatterns += [
         "<int:course_id>/",
         views.GradeProfessorCourse.as_view(),
         name="grade-professor-course",
-    )
+    ),
+    path(
+        "<int:course_id>/activity/<int:activity_id>/",
+        views.GradeActivity.as_view(),
+        name="grade-activity",
+    ),
+    path(
+        "<int:course_id>/activity/<int:exam_id>/",
+        views.GradeExam.as_view(),
+        name="grade-exam",
+    ),
+    path(
+        "<int:course_id>/activity/add",
+        views.GradeAddActivity.as_view(),
+        name="grade-add-activity",
+    ),
+    path(
+        "<int:course_id>/exam/add",
+        views.GradeAddExam.as_view(),
+        name="grade-add-exam",
+    ),
 ]
+
+# student url
+urlpatterns += []
