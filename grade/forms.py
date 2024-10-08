@@ -1,4 +1,4 @@
-from .models import Activity, Exam
+from .models import Activity, Exam, StudentActivity, StudentExam
 from django import forms
 
 
@@ -38,3 +38,21 @@ class AddExamForm(forms.ModelForm):
     class Meta:
         model = Exam
         fields = ["name", "score"]
+
+
+class StudentActivityForm(forms.ModelForm):
+
+    score = forms.CharField(widget=forms.NumberInput(attrs={"class": "form-control"}))
+
+    class Meta:
+        model = StudentActivity
+        fields = ["score"]
+
+
+class StudentExamForm(forms.ModelForm):
+
+    score = forms.CharField(widget=forms.NumberInput(attrs={"class": "form-control"}))
+
+    class Meta:
+        model = StudentExam
+        fields = ["score"]

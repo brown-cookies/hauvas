@@ -42,7 +42,7 @@
                                             </td>
                                             <th scope="row">{{ student.score }}</th>
                                             <td>
-                                                <a href="#!" class="btn btn-primary">Update Score</a>
+                                                <a href="{% url 'grade:grade-update-exam-score' course_id=course.id exam_id=exam.id student_id=student.student.id %}" class="btn btn-primary">Update Score</a>
                                             </td>
                                         </tr>
                                     {% endfor %}

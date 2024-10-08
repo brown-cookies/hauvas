@@ -1,0 +1,58 @@
+{% extends "base/base.html" %} 
+
+{% load static %} 
+
+{% block title %} {{ title }} {% endblock title %} 
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ course.codename }} {{ activity.name }}
+                                </div>
+                            </h3>
+
+                            <br />
+
+                            {% if form_success %}
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <span class="fs-6">
+                                        <i class="bi bi-check-circle"></i> 
+                                        Success Updating Score
+                                    <span>
+                                    <a href="{% url 'grade:grade-professor-course' course_id=course.id %}">Go back?</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <div class="form-group col-12 col-lg-4">
+                                    <label for="{{ form.score.id_for_label }}" class="form-label">Score</label>
+                                    {{ form.score }}
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}{% endblock extra_js %}

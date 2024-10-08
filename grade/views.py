@@ -1,8 +1,8 @@
-from .forms import AddActivityForm, AddExamForm
+from .forms import AddActivityForm, AddExamForm, StudentActivityForm, StudentExamForm
 from .models import Activity, Exam, StudentActivity, StudentExam
 from common.util.get_courses import get_courses
 from common.util.views import View
-from dashboard.models import Course
+from dashboard.models import Course, Student
 from django.contrib import messages
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.views.generic import TemplateView
@@ -172,6 +172,52 @@ class GradeActivity(View, TemplateView):
         return render(request, self.template_name, context)
 
 
+class GradeUpdateActivityScore(GradeActivity):
+    template_name = "grade/professor/update-activity-score.html"
+
+    def get(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        student_id = kwargs.pop("student_id", None)
+        student = Student.objects.get(pk=student_id)
+
+        form = StudentActivityForm()
+
+        context["student"] = student
+        context["form"] = form
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        student_id = kwargs.pop("student_id", None)
+        student = Student.objects.get(pk=student_id)
+
+        form = StudentActivityForm(data=request.POST)
+        activity = context["activity"]
+
+        if not form.is_valid():
+            messages.error(request, "Invalid Input!")
+
+        student_activity_instance = StudentActivity.objects.get(
+            student=student, activity=activity
+        )
+
+        student_activity_instance.score = form.cleaned_data["score"]
+
+        student_activity_instance.save()
+
+        messages.success(request, "Score successfully updated!")
+
+        context["form"] = form
+        context["form_success"] = True
+
+        return render(request, self.template_name, context)
+
+
 class GradeExam(View, TemplateView):
     template_name = "grade/professor/exam.html"
 
@@ -217,6 +263,50 @@ class GradeExam(View, TemplateView):
     def post(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+
+        return render(request, self.template_name, context)
+
+
+class GradeUpdateExamScore(GradeExam):
+    template_name = "grade/professor/update-exam-score.html"
+
+    def get(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        student_id = kwargs.pop("student_id", None)
+        student = Student.objects.get(pk=student_id)
+
+        form = StudentExamForm()
+
+        context["student"] = student
+        context["form"] = form
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        student_id = kwargs.pop("student_id", None)
+        student = Student.objects.get(pk=student_id)
+
+        form = StudentActivityForm(data=request.POST)
+        exam = context["exam"]
+
+        if not form.is_valid():
+            messages.error(request, "Invalid Input!")
+
+        student_exam_instance = StudentExam.objects.get(student=student, exam=exam)
+
+        student_exam_instance.score = form.cleaned_data["score"]
+
+        student_exam_instance.save()
+
+        messages.success(request, "Score successfully updated!")
+
+        context["form"] = form
+        context["form_success"] = True
 
         return render(request, self.template_name, context)
 

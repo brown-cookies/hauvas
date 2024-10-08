@@ -28,9 +28,19 @@ urlpatterns += [
         name="grade-activity",
     ),
     path(
+        "<int:course_id>/activity/<int:activity_id>/student/<int:student_id>/",
+        views.GradeUpdateActivityScore.as_view(),
+        name="grade-update-activity-score",
+    ),
+    path(
         "<int:course_id>/exam/<int:exam_id>/",
         views.GradeExam.as_view(),
         name="grade-exam",
+    ),
+    path(
+        "<int:course_id>/exam/<int:exam_id>/student/<int:student_id>/",
+        views.GradeUpdateExamScore.as_view(),
+        name="grade-update-exam-score",
     ),
     path(
         "<int:course_id>/activity/add",
