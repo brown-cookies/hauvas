@@ -147,6 +147,22 @@ class GradeActivity(View, TemplateView):
 
         context = self.get_context_data(*args, **kwargs)
 
+        course = context["course"]
+        activity = context["activity"]
+        enrollments = course.enrollments.all()
+        students = []
+
+        for enrollment in enrollments:
+            student = enrollment.student
+            student_activity = StudentActivity.objects.get(
+                student=student, activity=activity
+            )
+
+            students.append(student_activity)
+
+        context["enrollments"] = enrollments
+        context["students"] = students
+
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
