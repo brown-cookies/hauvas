@@ -182,7 +182,7 @@ class GradeExam(View, TemplateView):
         exam_id = kwargs.pop("exam_id", None)
 
         course = get_object_or_404(Course, pk=course_id)
-        exam = get_object_or_404(Activity, pk=exam_id)
+        exam = get_object_or_404(Exam, pk=exam_id)
 
         context["title"] = f"{course.codename} {exam.name}"
         context["link"] = "grade"
@@ -195,6 +195,22 @@ class GradeExam(View, TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(*args, **kwargs)
+
+        course = context["course"]
+        exam = context["exam"]
+        enrollments = course.enrollments.all()
+        students = []
+
+        for enrollment in enrollments:
+            student = enrollment.student
+            student_exam = StudentExam.objects.get(student=student, exam=exam)
+
+            print(student_exam)
+
+            students.append(student_exam)
+
+        context["enrollments"] = enrollments
+        context["students"] = students
 
         return render(request, self.template_name, context)
 

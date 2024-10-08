@@ -1,0 +1,60 @@
+{% extends "base/base.html" %} 
+
+{% load static %} 
+
+{% block title %} {{ title }} {% endblock title %} 
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ course.codename }} {{ activity.name }}
+                                </div>
+                            </h3>
+
+                            <br />
+
+                            <h5>Scores on {{ exam }}</h5>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student</th>
+                                        <th scope="col">Score</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                        <tr>
+                                            <td>
+                                                {{ student.student.user.profile.first_name }} {{ student.student.user.profile.last_name }}
+                                            </td>
+                                            <th scope="row">{{ student.score }}</th>
+                                            <td>
+                                                <a href="#!" class="btn btn-primary">Update Score</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}{% endblock extra_js %}
