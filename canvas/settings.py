@@ -34,7 +34,7 @@ print("DEBUG STATUS: ", DEBUG)
 # production: Used when the application is deployed in a live environment.
 # staging: Used for testing changes before deploying them to production.
 # testing: Used for running automated tests.
-APP_ENVIRONMENT = "production"
+APP_ENVIRONMENT = "local"
 
 print("Environment Status: ", APP_ENVIRONMENT)
 
@@ -269,3 +269,47 @@ if APP_ENVIRONMENT == "production":
     MEDIA_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
     MEDIA_ROOT = MEDIA_URL
     ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "DEBUG",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "django.security.DisallowedHost": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}
