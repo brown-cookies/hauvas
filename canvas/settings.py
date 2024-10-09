@@ -59,7 +59,9 @@ SECRET_KEY = (
 print("SECRET: ", SECRET_KEY)
 
 ALLOWED_HOSTS = (
-    ["127.0.0.1"] if APP_ENVIRONMENT == "local" else [os.environ.get("APP_URL")]
+    ["127.0.0.1"]
+    if APP_ENVIRONMENT == "local"
+    else ["cpehauvas-9c82c4213ba5.herokuapp.com"]
 )
 
 print("ALLOWED_HOSTS: ", ALLOWED_HOSTS)
