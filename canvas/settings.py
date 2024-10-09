@@ -24,14 +24,14 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("APP_DEBUG")) or True
+DEBUG = bool(os.environ.get("APP_DEBUG")) or True
 
 # Config that specifies the current environment the application is running in.
 # local: Used for local development. (default)
 # production: Used when the application is deployed in a live environment.
 # staging: Used for testing changes before deploying them to production.
 # testing: Used for running automated tests.
-ENVIRONMENT = os.getenv("APP_ENV") or "local"
+ENVIRONMENT = os.environ.get("APP_ENV") or "local"
 
 CORS_REPLACE_HTTPS_REFERRER = False
 HOST_SCHEME = "http://"
@@ -46,12 +46,12 @@ SECURE_FRAME_DENY = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = (
-    os.getenv("APP_KEY")
+    os.environ.get("APP_KEY")
     if not DEBUG
     else "django-insecure-b(3e8wi+f29*3dvi0+p6dqan%!g)zau=w+8tl#g6xw37wwx5re"
 )
 
-ALLOWED_HOSTS = [".herokuapp.com"] if DEBUG else [os.getenv("APP_URL")]
+ALLOWED_HOSTS = [".herokuapp.com"] if DEBUG else [os.environ.get("APP_URL")]
 
 INTERNAL_IPS = ["127.0.0.1"]
 
@@ -230,10 +230,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # AWS Configuration
-AWS_GROUP_NAME = os.getenv("AWS_GROUP_NAME")
-AWS_USERNAME = os.getenv("AWS_USERNAME")
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_GROUP_NAME = os.environ.get("AWS_GROUP_NAME")
+AWS_USERNAME = os.environ.get("AWS_USERNAME")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = "cpe-hauvas-bucket"
 AWS_S3_SIGNATURE_NAME = ("s3v4",)
 AWS_S3_REGION_NAME = "ap-southeast-2"
