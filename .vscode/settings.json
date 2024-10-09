@@ -3,6 +3,7 @@
         "Boto",
         "browsable",
         "DATANALYSIS",
+        "dotenv",
         "grappelli",
         "hauvas",
         "todos",

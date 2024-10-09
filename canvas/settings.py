@@ -24,14 +24,19 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.environ.get("APP_DEBUG") == 1 else False
+# DEBUG = True if (os.environ.get("APP_DEBUG")) == 1 else False
+DEBUG = False
+
+print("DEBUG STATUS: ", DEBUG)
 
 # Config that specifies the current environment the application is running in.
 # local: Used for local development. (default)
 # production: Used when the application is deployed in a live environment.
 # staging: Used for testing changes before deploying them to production.
 # testing: Used for running automated tests.
-ENVIRONMENT = os.environ.get("APP_ENV") or "local"
+APP_ENVIRONMENT = "production"
+
+print("Environment Status: ", APP_ENVIRONMENT)
 
 CORS_REPLACE_HTTPS_REFERRER = False
 HOST_SCHEME = "http://"
@@ -51,7 +56,13 @@ SECRET_KEY = (
     else "django-insecure-b(3e8wi+f29*3dvi0+p6dqan%!g)zau=w+8tl#g6xw37wwx5re"
 )
 
-ALLOWED_HOSTS = [".herokuapp.com"] if DEBUG else [os.environ.get("APP_URL")]
+print("SECRET: ", SECRET_KEY)
+
+ALLOWED_HOSTS = (
+    ["127.0.0.1"] if APP_ENVIRONMENT == "local" else [os.environ.get("APP_URL")]
+)
+
+print("ALLOWED_HOSTS: ", ALLOWED_HOSTS)
 
 INTERNAL_IPS = ["127.0.0.1"]
 
@@ -249,7 +260,7 @@ STORAGES = {
 }
 
 
-if ENVIRONMENT == "production":
+if APP_ENVIRONMENT == "production":
     S3_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
     STATIC_ROOT = S3_URL
     STATIC_URL = S3_URL + "static/"
