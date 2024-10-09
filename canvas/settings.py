@@ -34,7 +34,7 @@ print("DEBUG STATUS: ", DEBUG)
 # production: Used when the application is deployed in a live environment.
 # staging: Used for testing changes before deploying them to production.
 # testing: Used for running automated tests.
-APP_ENVIRONMENT = "local"
+APP_ENVIRONMENT = "production"
 
 print("Environment Status: ", APP_ENVIRONMENT)
 
