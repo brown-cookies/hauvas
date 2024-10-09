@@ -55,4 +55,10 @@ urlpatterns += [
 ]
 
 # student url
-urlpatterns += []
+urlpatterns += [
+    path(
+        "student/<int:course_id>/",
+        views.GradeStudentCourse.as_view(),
+        name="grade-student-course",
+    ),
+]

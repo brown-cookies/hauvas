@@ -1,6 +1,9 @@
 from .forms import AddActivityForm, AddExamForm, StudentActivityForm, StudentExamForm
 from .models import Activity, Exam, StudentActivity, StudentExam
+from common.util.calculate_raw_score import calculate_raw_score
+from common.util.determine_grade import determine_numeric_grade
 from common.util.get_courses import get_courses
+from common.util.transmute_raw_score import transmute_raw_score
 from common.util.views import View
 from dashboard.models import Course, Student
 from django.contrib import messages
@@ -429,5 +432,54 @@ class GradeAddExam(View, TemplateView):
 
         context["form"] = form
         context["form_success"] = True
+
+        return render(request, self.template_name, context)
+
+
+class GradeStudentCourse(View, TemplateView):
+    template_name = "grade/student/course.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        course_id = kwargs.pop("course_id", None)
+
+        course = get_object_or_404(Course, pk=course_id)
+        activities = Activity.objects.filter(course=course).order_by("-created_at")
+        exams = Exam.objects.filter(course=course).order_by("-created_at")
+
+        context["title"] = f"{course.codename} Grades"
+        context["link"] = "grade"
+
+        context["course"] = course
+        context["activities"] = activities
+        context["exams"] = exams
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+
+        context = self.get_context_data(*args, **kwargs)
+
+        student = request.user.student
+        activities = []
+        exams = []
+
+        for activity in context["activities"]:
+            activities.append(activity.list.get(student=student))
+
+        for exam in context["exams"]:
+            exams.append(exam.list.get(student=student))
+
+        raw_score = calculate_raw_score(request, context)
+        transmute_score = transmute_raw_score(raw_score)
+        numeric_grade = determine_numeric_grade(transmute_score)
+
+        context["student_activities"] = activities
+        context["student_exams"] = exams
+
+        context["raw_score"] = raw_score
+        context["transmute_score"] = transmute_score
+        context["numeric_grade"] = numeric_grade
 
         return render(request, self.template_name, context)

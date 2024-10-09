@@ -1,0 +1,114 @@
+{% extends "base/base.html" %} 
+
+{% load static %} 
+
+{% block title %} {{ title }} {% endblock title %} 
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+        {% comment %} Content Here {% endcomment %}
+            <div class="row">
+                <div class="col-xs-1-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <div class="hstack gap-3 d-flex justify-content-between">
+                                    {{ course.codename }} Grade
+                                </div>
+                            </h3>
+
+                            <br />
+
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <h5>Activities</h5>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Score</th>
+                                                <th scope="col">Up to</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for activity in student_activities %}
+                                                <tr>
+                                                    <td>
+                                                        {{ activity.activity.name }}
+                                                    </td>
+                                                    <td scope="row">{{ activity.score }}</td>
+                                                    <td>{{ activity.activity.score }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <h5>Exams</h5>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Exam Name</th>
+                                                <th scope="col">Score</th>
+                                                <th scope="col">Up to</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for exam in student_exams %}
+                                                <tr>
+                                                    <td>
+                                                        {{ exam.exam.name }}
+                                                    </td>
+                                                    <td scope="row">{{ exam.score }}</td>
+                                                    <td>{{ exam.exam.score }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                    
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Status of Grades</h6>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-4">Raw Score</div>
+                                <div class="col-4">{{ raw_score }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">Transmuted Score</div>
+                                <div class="col-4">{{ transmute_score }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">Grades</div>
+                                <div class="col-4">{{ numeric_grade }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+
+    jq
+
+</script>
+{% endblock extra_js %}

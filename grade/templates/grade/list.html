@@ -73,7 +73,13 @@
                                     {% for course in courses %}
                                         <tr>
                                             <td>
-                                                <a href="{% url 'grade:grade-professor-course' course_id=course.id %}" class="link-opacity-100">{{ course.code }}</a>
+                                                {% if user.profile.is_professor %}
+                                                    <a href="{% url 'grade:grade-professor-course' course_id=course.id %}" class="link-opacity-100">{{ course.code }}</a>
+                                                {% endif %}
+
+                                                {% if user.profile.is_student %}
+                                                    <a href="{% url 'grade:grade-student-course' course_id=course.id %}" class="link-opacity-100">{{ course.code }}</a>
+                                                {% endif %}
                                             </td>
                                             <th scope="row">{{ course.department }}</th>
                                             <td>{{ course.title|truncatechars:30 }}</td>
@@ -121,33 +127,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mb-2 text-body-secondary">Status of Grades</h6>
-                                <br />
-
-                                <div class="row">
-                                    <div class="col-4">PASS</div>
-                                    <div class="col-4">19</div>
-                                    <div class="col-4">100.00%</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">FAIL</div>
-                                    <div class="col-4">0</div>
-                                    <div class="col-4">0.00%</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">DROP</div>
-                                    <div class="col-4">0</div>
-                                    <div class="col-4">0.00%</div>
-                                </div>
-                                    <div class="row">
-                                    <div class="col-4">TOTAL SUBJECT TAKEN</div>
-                                    <div class="col-4">19</div>
-                                    <div class="col-4"></div>
-                                </div>
                             </div>
                         </div>
                     {% endif %}

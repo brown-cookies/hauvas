@@ -21,10 +21,12 @@
                                 <div class="hstack gap-3 d-flex justify-content-between">
                                     {{ course.codename }} Grade
                                     
-                                    <div>
-                                        <a href="{% url 'grade:grade-add-activity' course_id=course.id %}" class="btn btn-primary">Add Activity</a>
-                                        <a href="{% url 'grade:grade-add-exam' course_id=course.id %}" class="btn btn-primary">Add Exam</a>
-                                    </div>
+                                    {% if user.profile.is_professor %}
+                                        <div>
+                                            <a href="{% url 'grade:grade-add-activity' course_id=course.id %}" class="btn btn-primary">Add Activity</a>
+                                            <a href="{% url 'grade:grade-add-exam' course_id=course.id %}" class="btn btn-primary">Add Exam</a>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </h3>
 
@@ -81,44 +83,46 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">
-                                <div class="hstack gap-3 d-flex justify-content-between">
-                                    {{ course.codename }} Enrolled Students
-                                </div>
-                            </h3>
+                    {% if user.profile.is_professor %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <div class="hstack gap-3 d-flex justify-content-between">
+                                        {{ course.codename }} Enrolled Students
+                                    </div>
+                                </h3>
 
-                            <br />
+                                <br />
 
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Student ID</th>
-                                        <th scope="col">Enrollment ID</th>
-                                        <th scope="col">Fullname</th>
-                                        <th scope="col">Block Section</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Grade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for enrollment in enrollments %}
+                                <table class="table table-hover">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <a href="" class="link-opacity-100">{{ enrollment.student.id }}</a>
-                                            </td>
-                                            <th scope="row">{{ enrollment.id }}</th>
-                                            <td>{{ enrollment.student.user.profile.first_name }} {{ enrollment.student.user.profile.last_name }}</td>
-                                            <td>{{ enrollment.student.block }}</td>
-                                            <td>{{ enrollment.status }}</td>
-                                            <td></td>
+                                            <th scope="col">Student ID</th>
+                                            <th scope="col">Enrollment ID</th>
+                                            <th scope="col">Fullname</th>
+                                            <th scope="col">Block Section</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Grade</th>
                                         </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {% for enrollment in enrollments %}
+                                            <tr>
+                                                <td>
+                                                    <a href="" class="link-opacity-100">{{ enrollment.student.id }}</a>
+                                                </td>
+                                                <th scope="row">{{ enrollment.id }}</th>
+                                                <td>{{ enrollment.student.user.profile.first_name }} {{ enrollment.student.user.profile.last_name }}</td>
+                                                <td>{{ enrollment.student.block }}</td>
+                                                <td>{{ enrollment.status }}</td>
+                                                <td></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
