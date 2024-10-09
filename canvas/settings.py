@@ -50,7 +50,7 @@ SECRET_KEY = (
     else "django-insecure-b(3e8wi+f29*3dvi0+p6dqan%!g)zau=w+8tl#g6xw37wwx5re"
 )
 
-ALLOWED_HOSTS = [] if DEBUG else [os.getenv("APP_URL")]
+ALLOWED_HOSTS = [".herokuapp.com"] if DEBUG else [os.getenv("APP_URL")]
 
 INTERNAL_IPS = ["127.0.0.1"]
 
