@@ -1,4 +1,5 @@
 import dj_database_url
+import datetime
 from dotenv import load_dotenv
 from enum import Enum
 from pathlib import Path
@@ -42,10 +43,6 @@ SECURE_HOSTS_SECONDS = None
 SECURE_HOSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = False
 
-AWS_GROUP_NAME = os.getenv("AWS_GROUP_NAME")
-AWS_USERNAME = os.getenv("AWS_USERNAME")
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = (
@@ -204,7 +201,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -220,14 +216,43 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static_my_project/"
-STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = [BASE_DIR / "static_my_project", BASE_DIR / "components"]
+STATIC_URL = "static_my_project/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static", "static_root")
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media_root")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# AWS Configuration
+AWS_GROUP_NAME = os.getenv("AWS_GROUP_NAME")
+AWS_USERNAME = os.getenv("AWS_USERNAME")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = "cpe-hauvas-bucket"
+AWS_S3_SIGNATURE_NAME = ("s3v4",)
+AWS_S3_REGION_NAME = "ap-southeast-2"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = True
+# DEFAULT_FILE_STORAGE = "canvas.aws.utils.MediaRootS3BotoStorage"
+# STATICFILES_STORAGE = "canvas.aws.utils.StaticRootS3BotoStorage"
+
+STORAGES = {
+    "default": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
+    "staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
+}
+
+
+if ENVIRONMENT == "production":
+    S3_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
+    STATIC_ROOT = S3_URL
+    STATIC_URL = S3_URL + "static/"
+    MEDIA_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
+    MEDIA_ROOT = MEDIA_URL
+    ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
