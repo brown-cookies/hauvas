@@ -32,6 +32,21 @@ DEBUG = bool(os.getenv("APP_DEBUG")) or True
 # testing: Used for running automated tests.
 ENVIRONMENT = os.getenv("APP_ENV") or "local"
 
+CORS_REPLACE_HTTPS_REFERRER = False
+HOST_SCHEME = "http://"
+SECURE_PROXY_SSL_HEADER = None
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_HOSTS_SECONDS = None
+SECURE_HOSTS_INCLUDE_SUBDOMAINS = False
+SECURE_FRAME_DENY = False
+
+AWS_GROUP_NAME = os.getenv("AWS_GROUP_NAME")
+AWS_USERNAME = os.getenv("AWS_USERNAME")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = (
     os.getenv("APP_KEY")
@@ -39,7 +54,7 @@ SECRET_KEY = (
     else "django-insecure-b(3e8wi+f29*3dvi0+p6dqan%!g)zau=w+8tl#g6xw37wwx5re"
 )
 
-ALLOWED_HOSTS = [".herokuapp.com"] if DEBUG else [os.getenv("APP_URL")]
+ALLOWED_HOSTS = [] if DEBUG else [os.getenv("APP_URL")]
 
 INTERNAL_IPS = ["127.0.0.1"]
 
@@ -59,6 +74,7 @@ INSTALLED_APPS = [
     "django_seed",
     # "haystack",
     "rest_framework",
+    "storages",
     "dashboard",
     "canvas",
     "main",

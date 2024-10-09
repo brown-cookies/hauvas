@@ -1,6 +1,9 @@
 asgiref==3.8.1
 async-timeout==4.0.3
 bleach==6.1.0
+boto==2.49.0
+boto3==1.35.36
+botocore==1.35.36
 certifi==2024.7.4
 charset-normalizer==3.3.2
 click==8.1.7
@@ -14,6 +17,7 @@ django-filter==24.2
 django-grappelli==4.0.1
 django-haystack==3.3.0
 django-seed==0.3.1
+django-storages==1.14.4
 django_components==0.84
 djangorestframework==3.15.2
 djlint==1.35.2
@@ -23,6 +27,7 @@ gunicorn==23.0.0
 html-tag-names==0.1.2
 html-void-elements==0.1.0
 idna==3.7
+jmespath==1.0.1
 jsbeautifier==1.15.1
 json5==0.9.25
 Markdown==3.6
@@ -36,6 +41,7 @@ PyYAML==6.0.2
 redis==5.0.8
 regex==2024.9.11
 requests==2.32.3
+s3transfer==0.10.3
 six==1.16.0
 sqlparse==0.5.0
 tinycss2==1.2.1
