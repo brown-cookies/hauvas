@@ -25,7 +25,7 @@ load_dotenv()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True if (os.environ.get("APP_DEBUG")) == 1 else False
-DEBUG = False
+DEBUG = True
 
 print("DEBUG STATUS: ", DEBUG)
 
@@ -34,7 +34,7 @@ print("DEBUG STATUS: ", DEBUG)
 # production: Used when the application is deployed in a live environment.
 # staging: Used for testing changes before deploying them to production.
 # testing: Used for running automated tests.
-APP_ENVIRONMENT = "production"
+APP_ENVIRONMENT = "local"
 
 print("Environment Status: ", APP_ENVIRONMENT)
 
@@ -243,32 +243,32 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # AWS Configuration
-AWS_GROUP_NAME = os.environ.get("AWS_GROUP_NAME")
-AWS_USERNAME = os.environ.get("AWS_USERNAME")
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = "cpe-hauvas-bucket"
-AWS_S3_SIGNATURE_NAME = ("s3v4",)
-AWS_S3_REGION_NAME = "ap-southeast-2"
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_S3_VERIFY = True
+# AWS_GROUP_NAME = os.environ.get("AWS_GROUP_NAME")
+# AWS_USERNAME = os.environ.get("AWS_USERNAME")
+# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = "cpe-hauvas-bucket"
+# AWS_S3_SIGNATURE_NAME = ("s3v4",)
+# AWS_S3_REGION_NAME = "ap-southeast-2"
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# AWS_S3_VERIFY = True
 # DEFAULT_FILE_STORAGE = "canvas.aws.utils.MediaRootS3BotoStorage"
 # STATICFILES_STORAGE = "canvas.aws.utils.StaticRootS3BotoStorage"
 
-STORAGES = {
-    "default": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
-    "staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
-}
+# STORAGES = {
+#     "default": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
+#     "staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"},
+# }
 
 
-if APP_ENVIRONMENT == "production":
-    S3_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
-    STATIC_ROOT = S3_URL
-    STATIC_URL = S3_URL + "static/"
-    MEDIA_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
-    MEDIA_ROOT = MEDIA_URL
-    ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
+# if APP_ENVIRONMENT == "production":
+#     S3_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
+#     STATIC_ROOT = S3_URL
+#     STATIC_URL = S3_URL + "static/"
+#     MEDIA_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
+#     MEDIA_ROOT = MEDIA_URL
+#     ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
 
 LOGGING = {
